@@ -2,4 +2,5 @@
 
 1. Clone the repo
 2. Run `npm install`
-3. Run `npm start`
+
+start server (APACHE) and dbms services (MySQL) in **XAMPP/Laragon**
