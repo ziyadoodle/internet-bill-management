@@ -2,8 +2,9 @@
 
 "# internet-bill-uas-pweb1" 
 
-1. Clone the repo
-2. Run `npm install`
+1. Clone the repo `git clone https://github.com/ziyadoodle/internet-bill-management.git`
+2. `cd internet-bill-management`
+3. Run `npm install`
 
 start server `(APACHE)` and dbms services `(MySQL)` in **XAMPP/Laragon**
 
