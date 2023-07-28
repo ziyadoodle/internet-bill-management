@@ -61,7 +61,7 @@ require './functions.php';
                 <div class="text-white text-base font-normal">time</div>
             </div>
 
-            <div class="flex flex-col w-[70%] h-[22rem] bg-neutral-600 rounded-lg p-8 mt-24">
+            <div class="flex flex-col w-[70%] 2xl:w-[60%] h-[22rem] bg-neutral-600 rounded-lg p-8 mt-24">
                 <div class="flex flex-row items-center text-white font-bold">
                     <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/FFFFFF/new-product.png" alt="new-product" />
                     <h1 class="pl-2">Create Package</h1>

@@ -768,6 +768,10 @@ video {
   width: 91.666667%;
 }
 
+.w-\[60\%\] {
+  width: 60%;
+}
+
 .flex-none {
   flex: none;
 }
@@ -1146,7 +1150,16 @@ video {
   outline-offset: 2px;
 }
 
+.active\:bg-fuchsia-700:active {
+  --tw-bg-opacity: 1;
+  background-color: rgb(162 28 175 / var(--tw-bg-opacity));
+}
+
 @media (min-width: 1536px) {
+  .\32xl\:w-\[60\%\] {
+    width: 60%;
+  }
+
   .\32xl\:px-20 {
     padding-left: 5rem;
     padding-right: 5rem;
