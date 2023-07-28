@@ -16,8 +16,8 @@ require './functions.php';
 </head>
 
 <body class="bg-zinc-800">
-    <div class="flex flex-row p-6 w-full h-screen">
 
+    <div class="flex flex-row p-6 w-full h-screen">
         <div class="basis-2/12">
             <div class="sidebar w-[250px] h-full p-2 overflow-y-auto text-center bg-gradient-to-b from-fuchsia-400 to-purple-800 rounded-2xl">
                 <div class="text-white text-xl">
@@ -60,12 +60,38 @@ require './functions.php';
                 <div class="text-white text-base font-normal">admin</div>
                 <div class="text-white text-base font-normal">time</div>
             </div>
-            <div class="flex-none w-[70%] bg-neutral-600 mt-10">asd</div>
-            <div class="bg-neutral-600">asd</div>
+
+            <div class="flex flex-col w-[70%] h-[22rem] bg-neutral-600 rounded-lg p-8 mt-24">
+                <div class="flex flex-row items-center text-white font-bold">
+                    <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/FFFFFF/new-product.png" alt="new-product" />
+                    <h1 class="pl-2">Create Package</h1>
+                </div>
+
+                <div class="flex flex-col text-white mt-6">
+                    <div class="flex flex-row w-full items-center pr-10 py-2">
+                        <label for="name" class="w-3/12">Name</label>
+                        <input type="text" name="name" id="name" class="h-8 w-9/12 border-none outline-none mt-1 rounded px-4 bg-neutral-500" value="" autocomplete="off" />
+                    </div>
+                    <div class="flex flex-row w-full items-center pr-10 py-2">
+                        <label for="description" class="w-3/12">Description</label>
+                        <input type="text" name="description" id="description" class="h-8 w-9/12 border-none outline-none mt-1 rounded px-4 bg-neutral-500" value="" autocomplete="off" />
+                    </div>
+                    <div class="flex flex-row w-full items-center pr-10 py-2">
+                        <label for="price" class="w-3/12">Price</label>
+                        <div class="price-input w-9/12 flex justify-between">
+                            <input type="text" class="h-8 w-1/12 border-none outline-none mt-1 mr-2 px-1 text-center rounded bg-neutral-500" value="Rp." disabled />
+                            <input type="text" name="price" id="price" class="h-8 w-11/12 border-none outline-none mt-1 rounded px-4 bg-neutral-500" value="" autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="flex flex-row justify-end w-full items-center pr-10 py-2 mt-6">
+                        <button type="submit" name="create-package" class="bg-neutral-500 text-white rounded-md px-4 py-2 transition duration-300 ease select-none hover:bg-neutral-700 focus:outline-none focus:shadow-outline">Create</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex-none w-full h-72 bg-neutral-600 rounded-lg mt-10">asd</div>
         </div>
-
     </div>
-
 
 </body>
 
