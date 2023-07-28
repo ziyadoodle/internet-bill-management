@@ -620,8 +620,8 @@ video {
   width: 1.25rem;
 }
 
-.w-6\/12 {
-  width: 50%;
+.w-\[100\%\] {
+  width: 100%;
 }
 
 .w-\[250px\] {
@@ -630,6 +630,14 @@ video {
 
 .w-full {
   width: 100%;
+}
+
+.w-6\/12 {
+  width: 50%;
+}
+
+.w-\[300px\] {
+  width: 300px;
 }
 
 .cursor-pointer {
@@ -695,6 +703,14 @@ video {
 
 .p-2\.5 {
   padding: 0.625rem;
+}
+
+.p-4 {
+  padding: 1rem;
+}
+
+.p-40 {
+  padding: 10rem;
 }
 
 .px-4 {
