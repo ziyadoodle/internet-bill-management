@@ -44,10 +44,12 @@
         </div>
     </div>
 
-    <div class="topbar w-6/12 h-14 flex justify-between mx-auto relative">
+    <div class="topbar w-6/12 h-14 mx-auto relative">
         <div class="w-full h-14 top-[31px] absolute">
-            <div class="w-full h-14 left-0 top-0 absolute bg-neutral-600 rounded-xl">
+            <div class="w-full h-14 left-0 top-0 flex justify-between items-center bg-neutral-600 rounded-xl px-6">
+                <div class="text-white text-base font-normal">date</div>
                 <div class="text-white text-base font-normal">admin</div>
+                <div class="text-white text-base font-normal">time</div>
             </div>
         </div>
     </div>
