@@ -618,6 +618,11 @@ video {
   margin-bottom: 0.5rem;
 }
 
+.my-10 {
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
 .ml-3 {
   margin-left: 0.75rem;
 }
@@ -638,6 +643,10 @@ video {
   margin-top: 0.75rem;
 }
 
+.mb-10 {
+  margin-bottom: 2.5rem;
+}
+
 .flex {
   display: flex;
 }
@@ -652,6 +661,26 @@ video {
 
 .h-\[1px\] {
   height: 1px;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.h-screen {
+  height: 100vh;
+}
+
+.h-\[90\%\] {
+  height: 90%;
+}
+
+.h-\[100\%\] {
+  height: 100%;
+}
+
+.max-h-screen {
+  max-height: 100vh;
 }
 
 .w-14 {
@@ -930,5 +959,10 @@ video {
   .\32xl\:px-24 {
     padding-left: 6rem;
     padding-right: 6rem;
+  }
+
+  .\32xl\:px-20 {
+    padding-left: 5rem;
+    padding-right: 5rem;
   }
 }

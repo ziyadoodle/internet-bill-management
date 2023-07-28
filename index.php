@@ -16,10 +16,10 @@ require 'functions.php';
 </head>
 
 <body class="bg-zinc-800">
-    <div class="flex flex-row p-6 w-full">
+    <div class="flex flex-row p-6 w-full h-screen">
 
         <div class="basis-2/12">
-            <div class="sidebar w-[250px] p-2 overflow-y-auto text-center bg-gradient-to-b from-fuchsia-400 to-purple-800 rounded-2xl">
+            <div class="sidebar w-[250px] h-full p-2 overflow-y-auto text-center bg-gradient-to-b from-fuchsia-400 to-purple-800 rounded-2xl">
                 <div class="text-white text-xl">
                     <div class="p-2.5 mt-1 flex items-center">
                         <i><img class="w-14 h-14" src="https://img.icons8.com/ios/100/ffffff/happy-cloud.png" alt="happy-cloud" /></i>
@@ -54,7 +54,7 @@ require 'functions.php';
             </div>
         </div>
 
-        <div class="topbar h-14 basis-10/12 px-16 2xl:px-24">
+        <div class="topbar flex flex-col basis-10/12 px-16 2xl:px-20">
             <div class="h-14 left-0 top-0 flex justify-between items-center bg-neutral-600 rounded-xl px-6">
                 <div class="text-white text-base font-normal">date</div>
                 <div class="text-white text-base font-normal">admin</div>
