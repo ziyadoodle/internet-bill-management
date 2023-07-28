@@ -16,6 +16,7 @@ function query($query)
     return $rows;
 }
 
+// ⭐⭐⭐ PACKAGE ⭐⭐⭐
 function create_package($data)
 {
     global $conn;
@@ -33,3 +34,12 @@ function create_package($data)
 
     return mysqli_affected_rows($conn);
 }
+
+function update_package()
+{
+}
+
+function delete_package()
+{
+}
+// ⭐⭐⭐ PACKAGE ⭐⭐⭐
