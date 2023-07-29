@@ -35,8 +35,25 @@ function create_package($data)
     return mysqli_affected_rows($conn);
 }
 
-function update_package()
+function update_package($data)
 {
+    global $conn;
+
+    $id = $data["id_package"];
+    $name = htmlspecialchars($data["package_name"]);
+    $desc = htmlspecialchars($data["package_desc"]);
+    $price = htmlspecialchars($data["package_price"]);
+
+    $query = "UPDATE package SET
+                package_name = '$name',
+                descriptions = '$desc',
+                price = $price
+            WHERE id = $id
+                ";
+
+    mysqli_query($conn, $query);
+
+    return mysqli_affected_rows($conn);
 }
 
 function delete_package()
