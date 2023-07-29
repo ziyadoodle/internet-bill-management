@@ -7,10 +7,10 @@ $package = query("SELECT * FROM package");
 
 
 if (isset($_POST["create"])) {
-
     if (create_transaction($_POST) > 0) {
         echo "<script> 
                 alert('Transaksi Berhasil!');
+                document.location.href = 'transaction.php';
             </script>";
     } else {
         echo "<script> 
@@ -20,8 +20,8 @@ if (isset($_POST["create"])) {
 }
 
 //jika paket sudah diset
-if(isset($_POST["package"])){
-    $cari = $_GET["package"];
+if(isset($_POST["package_name"])){
+    $cari = $_GET["package_name"];
 
     //ambil data dari database
     $data = mysqli_query($conn, "SELECT * FROM package WHERE package_name = '$cari'");
@@ -185,7 +185,7 @@ if (isset($_POST["print"])){
                                             <?= $i; ?>
                                         </td>
                                         <td class="p-3">
-                                            <?= $row["name"]; ?>
+                                            <?= $row["user_name"]; ?>
                                         </td>
                                         <td class="p-3">
                                             <?= $row["package_name"]; ?>
