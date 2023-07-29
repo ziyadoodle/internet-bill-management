@@ -56,7 +56,12 @@ function update_package($data)
     return mysqli_affected_rows($conn);
 }
 
-function delete_package()
+function delete_package($id)
 {
+    global $conn;
+
+    mysqli_query($conn, "DELETE FROM package WHERE id = $id");
+
+    return mysqli_affected_rows($conn);
 }
 // ⭐⭐⭐ PACKAGE ⭐⭐⭐

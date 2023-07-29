@@ -11,13 +11,23 @@ $package = query("SELECT * FROM package");
 if (isset($_POST["submit"])) {
     if (create_package($_POST) > 0) {
         echo "<script> 
-                alert('Package Berhasil di Buat!');
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Package Berhasil di Buat!',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
                 document.location.href = 'package.php';
             </script>";
     } else {
         echo "<script> 
-                alert('Package Gagal di Buat!');
-            </script>";
+        Swal.fire({
+            icon: 'error',
+            title: 'Package Gagal di Buat!',
+            showConfirmButton: false,
+            timer: 1500
+        });
+    </script>";
     }
 }
 
