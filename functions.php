@@ -1,6 +1,22 @@
 <?php
 
 // database connection
+function koneksi()
+{
+    $host = "localhost";
+    $username = "root";
+    $password = "";
+    $database = "internet_bill";
+
+    $conn = mysqli_connect($host, $username, $password, $database);
+
+    if (!$conn) {
+        die("Koneksi gagal: " . mysqli_connect_error());
+    }
+
+    return $conn;
+}
+
 $conn = mysqli_connect("localhost", "root", "", "internet_bill");
 
 function query($query)
@@ -111,6 +127,60 @@ function create_transaction($data)
     mysqli_query($conn, $query);
 
     return mysqli_affected_rows($conn);
+}
+
+// function report_transactions($from, $to)
+// {
+//     $conn = koneksi();
+//     $query = "SELECT user.id, user.user_name, user.address, user.date, user.comment, 
+//                      transaction.id AS transaction_id, transaction.package_name, transaction.start, transaction.end, 
+//                      package.id AS package_id, package.descriptions, package.price 
+//               FROM user 
+//               JOIN transaction ON user.user_name = transaction.user_name 
+//               JOIN package ON transaction.package_name = package.package_name 
+//               WHERE transaction.date BETWEEN '$from' AND '$to'";
+
+//     $result = mysqli_query($conn, $query);
+//     $rows = [];
+//     while ($row = mysqli_fetch_assoc($result)) {
+//         $rows[] = $row;
+//     }
+//     mysqli_close($conn);
+//     return $rows;
+// }
+
+function report_transactions($from, $to)
+{
+    $conn = koneksi();
+
+
+    // Mengubah format tanggal
+    $from = date_format(date_create($from), 'Y-m-d');
+    $to = date_format(date_create($to), 'Y-m-d');
+
+    $query = "SELECT user.id, user.user_name, user.address, user.date, user.comment, 
+                     transaction.id AS transaction_id, transaction.package_name, transaction.start, transaction.end, 
+                     package.id AS package_id, package.descriptions, package.price 
+              FROM user 
+              JOIN transaction ON user.user_name = transaction.user_name 
+              JOIN package ON transaction.package_name = package.package_name
+              WHERE transaction.date BETWEEN '$from' AND '$to' ";
+
+    $result = $conn->query($query);
+
+    if ($result) {
+
+        $dataLaporan = array();
+        while ($row = $result->fetch_assoc()) {
+            $dataLaporan[] = $row;
+        }
+        $conn->close();
+        return $dataLaporan;
+    } else {
+        echo "Error: " . $query . "<br>" . $conn->error;
+        $conn->close();
+        return array();
+    }
 }
 
 //TRANSACTION

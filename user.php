@@ -5,7 +5,7 @@ require './functions.php';
 $user = query("SELECT user.id, user.user_name, user.address, package.id, package.package_name, transaction.id, transaction.start, transaction.end
 FROM user
 JOIN package ON user.id = package.id
-JOIN transaction ON user.id = transaction.id");
+JOIN transaction ON user.user_name = transaction.user_name");
 
 // create check
 if (isset($_POST["submit"])) {
@@ -221,7 +221,7 @@ if (isset($_POST["submit"])) {
         // modal
         let modal = document.getElementById("modal");
 
-        function modalHandler(val ) {
+        function modalHandler(val) {
             if (val) {
                 fadeIn(modal);
             } else {
