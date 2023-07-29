@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 
 require './functions.php';
@@ -36,6 +37,8 @@ if (isset($_POST["edit"])) {
 }
 ?>
 
+=======
+>>>>>>> 568a55ca1614ddafe2950712713c665b97764027
 <!doctype html>
 <html>
 
@@ -44,10 +47,44 @@ if (isset($_POST["edit"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="./src/styles.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
 </head>
 
 <body class="bg-zinc-800">
+<<<<<<< HEAD
 
+=======
+    <?php
+
+    require './functions.php';
+
+    $package = query("SELECT * FROM package");
+
+    if (isset($_POST["submit"])) {
+
+        if (create_package($_POST) > 0) {
+            echo "<script> 
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Package Berhasil di Buat!',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            </script>";
+        } else {
+            echo "<script> 
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Package Gagal di Buat!',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            </script>";
+        }
+    }
+
+    ?>
+>>>>>>> 568a55ca1614ddafe2950712713c665b97764027
     <div class="flex flex-row p-6 w-full h-screen">
         <div class="basis-2/12">
             <div class="sidebar w-[250px] h-full p-2 overflow-y-auto text-center bg-gradient-to-b from-fuchsia-400 to-purple-800 rounded-2xl">
