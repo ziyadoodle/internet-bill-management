@@ -15,3 +15,31 @@ function query($query)
 
     return $rows;
 }
+
+// ⭐⭐⭐ PACKAGE ⭐⭐⭐
+function create_package($data)
+{
+    global $conn;
+
+    $name = htmlspecialchars($data["name"]);
+    $desc = htmlspecialchars($data["description"]);
+    $price = htmlspecialchars($data["price"]);
+
+    $query = "INSERT INTO package
+                VALUES
+                (NULL, '$name', '$desc', '$price')
+                ";
+
+    mysqli_query($conn, $query);
+
+    return mysqli_affected_rows($conn);
+}
+
+function update_package()
+{
+}
+
+function delete_package()
+{
+}
+// ⭐⭐⭐ PACKAGE ⭐⭐⭐
