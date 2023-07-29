@@ -16,6 +16,34 @@ function query($query)
     return $rows;
 }
 
+// ⭐⭐⭐ USER START ⭐⭐⭐
+
+function create_user($data)
+{
+    global $conn;
+
+    $user_name = htmlspecialchars($data["user_name"]);
+    $address = htmlspecialchars($data["address"]);
+    $date = htmlspecialchars($data["date"]);
+    $comment = htmlspecialchars($data["comment"]);
+
+    $query = "INSERT INTO user
+                VALUES
+                (NULL,'$user_name', '$address', '$date', '$comment')
+                ";
+
+    mysqli_query($conn, $query);
+
+    return mysqli_affected_rows($conn);
+}
+
+
+
+
+// ⭐⭐⭐ USER END ⭐⭐⭐
+
+
+
 // ⭐⭐⭐ PACKAGE ⭐⭐⭐
 function create_package($data)
 {
@@ -67,7 +95,8 @@ function delete_package($id)
 // ⭐⭐⭐ PACKAGE ⭐⭐⭐
 
 //TRANSACTION
-function create_transaction($data){
+function create_transaction($data)
+{
 
     global $conn;
 
