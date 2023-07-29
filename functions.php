@@ -65,3 +65,23 @@ function delete_package($id)
     return mysqli_affected_rows($conn);
 }
 // ⭐⭐⭐ PACKAGE ⭐⭐⭐
+
+//TRANSACTION
+function create_transaction($data){
+
+    global $conn;
+
+    $name = htmlspecialchars($data["name"]);
+    $package = htmlspecialchars($data["package"]);
+    $date = htmlspecialchars($data["date"]);
+    $start = htmlspecialchars($data["start"]);
+    $end = htmlspecialchars($data["end"]);
+    $price = htmlspecialchars($data["price"]);
+
+    $query = "INSERT INTO transaction VALUES (NULL, '$name', '$date', '$package', '$start', '$end')";
+    mysqli_query($conn, $query);
+
+    return mysqli_affected_rows($conn);
+}
+
+//TRANSACTION
