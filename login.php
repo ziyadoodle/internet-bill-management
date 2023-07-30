@@ -66,7 +66,7 @@ if (isset($_POST['login'])) {
               <label class="text-white text-sm font-bold mb-2 ml-2" for="remember">Remember Me</label>
             </div>
             <div class="flex items-center justify-center">
-              <input class="bg-gradient-to-r from-emerald-700 to via-violet-700 to-pink-500 text-white font-bold py-2 px-20 rounded focus:outline-none focus:shadow-outline hover:from-pink-500 hover:to-violet-500  ring-red-800 " type="submit" name="login">
+              <input class="bg-gradient-to-r from-teal-600 to via-violet-700 to-fuchsia-500 transition ease-in-out duration-300 text-white font-bold py-4 px-20 rounded focus:outline-none focus:shadow-outline hover:bg-gradient-to-l ring-red-800 " type="submit" name="login">
               </input>
             </div>
             <div class="text-center text-white mt-3 2xl:mt-5">
