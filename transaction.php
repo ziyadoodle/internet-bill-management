@@ -290,6 +290,25 @@ if (isset($_POST["print"])) {
             document.getElementsByClassName("price-col")[i].innerText = IDR.format(document.getElementsByClassName("price-col")[i].innerText);
         }
 
+        // date format for input
+        const date = new Date();
+        let day = '' + date.getDate();
+        let month = '' + (date.getMonth() + 1);
+        let year = date.getFullYear();
+
+        if (month.length < 2) {
+            month = '0' + month;
+        }
+        if (day.length < 2) {
+            day = '0' + day;
+        }
+
+        let currentDate = `${year}-${month}-${day}`;
+
+        $("select#package").change(function() {
+            document.getElementById("date").value = currentDate;
+        })
+
         // modal
         let modal = document.getElementById("modal");
 
