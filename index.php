@@ -86,20 +86,20 @@ $tableRecent = query('SELECT user_name, date FROM transaction ORDER BY id DESC L
                 <p class="text-md font-normal">Here what’s happening in your finance</p>
             </div>
             <div class="flex flex-row justify-between mt-5">
-                <div class="w-[70%] 2xl:w-[70%] h-[22rem] bg-neutral-600 rounded-lg p-8">
+                <div class="w-[60%] 2xl:w-3/5 h-full bg-neutral-600 rounded-lg p-8">
                     <div class="flex flex-col text-white">
                         <canvas id="chart"></canvas>
                     </div>
                 </div>
-                <div class="flex flex-col w-[30%] bg-neutral-600 rounded-xl ml-10">
+                <div class="flex flex-col w-[30%] bg-neutral-600 rounded-xl">
                     <div class="flex flex-col text-center p-4 font-semibold text-white">
                         <h3 class="text-xl">Recent Transaction</h3>
-                        <div class="mx-auto my-2 w-20 bg-gray-200 h-[2px]"></div>
+                        <div class="mx-auto mt-4 mb-2 w-24 bg-gray-200 h-[2px]"></div>
                     </div>
 
                     <?php foreach ($tableRecent as $row) : ?>
-                        <div class="flex flex-row justify-between p-4 text-white">
-                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 14 18">
+                        <div class="flex flex-row justify-between items-center p-4 text-white">
+                            <svg class="w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 14 18">
                                 <path d="M7 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm2 1H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z" />
                             </svg>
                             <h1 class="pl-1"><?= $row["user_name"]; ?></h1>
@@ -110,7 +110,7 @@ $tableRecent = query('SELECT user_name, date FROM transaction ORDER BY id DESC L
                 </div>
             </div>
 
-            <div class="flex flex-row justify-between mt-10">
+            <div class="flex flex-row justify-between my-10">
                 <div class="w-[40%] 2xl:w-[40%] h-[18rem] bg-neutral-600 rounded-lg p-8">
                     <div class="flex flex-col text-center font-semibold text-white ">
                         <h3 class="text-xl">Package of Internet</h3>
@@ -139,13 +139,12 @@ $tableRecent = query('SELECT user_name, date FROM transaction ORDER BY id DESC L
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="flex flex-col w-[60%] bg-neutral-600 rounded-xl p-8 ml-10">
                     <div class="flex flex-col text-center font-semibold">
                         <h3 class="text-white text-2xl">Total Income of The Month</h3>
                         <h3 class="text-white mt-20 text-4xl">Rp.3.000.000</h3>
                     </div>
-
                 </div>
             </div>
 
