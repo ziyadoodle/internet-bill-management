@@ -68,10 +68,11 @@ if (isset($_POST['login'])) {
             <div class="flex items-center justify-center">
               <input class="bg-gradient-to-r from-emerald-700 to via-violet-700 to-pink-500 text-white font-bold py-2 px-20 rounded focus:outline-none focus:shadow-outline hover:from-pink-500 hover:to-violet-500  ring-red-800 " type="submit" name="login">
               </input>
-
-
-
             </div>
+            <div class="text-center text-white mt-3 2xl:mt-5">
+              <span>Not have account? <a href="./register.php" class="font-bold hover:underline">Register</a></span>
+            </div>
+
           </form>
 
         </div>
