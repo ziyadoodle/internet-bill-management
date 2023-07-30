@@ -1,6 +1,6 @@
 # TUGAS BESAR UAS PEMROGRAMMAN WEB
 
-"# MIKROBILL internet billing management web application" 
+"**MIKROBILL** internet billing management web application" 
 
 1. Clone the repo `git clone https://github.com/ziyadoodle/internet-bill-management.git`
 2. `cd internet-bill-management`
