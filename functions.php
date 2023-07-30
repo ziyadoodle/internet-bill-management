@@ -53,7 +53,14 @@ function create_user($data)
     return mysqli_affected_rows($conn);
 }
 
+function delete_user($id)
+{
+    global $conn;
 
+    mysqli_query($conn, "DELETE FROM user WHERE id = $id");
+
+    return mysqli_affected_rows($conn);
+}
 
 
 // ⭐⭐⭐ USER END ⭐⭐⭐
