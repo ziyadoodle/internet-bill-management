@@ -147,7 +147,16 @@ function create_transaction($data)
     $price = $selectPrice[0]["price"];
 
     $query = "INSERT INTO transaction VALUES (NULL, '$name', '$date', '$package', '$start', '$end', $price)";
-    mysqli_query($conn, $query);
+    mysqli_query($conn, $query);    
+
+    return mysqli_affected_rows($conn);
+}
+
+function delete_transaction($id)
+{
+    global $conn;
+
+    mysqli_query($conn, "DELETE FROM transaction WHERE id = $id");
 
     return mysqli_affected_rows($conn);
 }
