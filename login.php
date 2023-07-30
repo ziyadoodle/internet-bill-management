@@ -37,7 +37,7 @@ if (isset($_POST['login'])) {
 
 </head>
 
-<body class="bg-zinc-800">
+<body class="bg-zinc-800 h-screen">
 <div class="alert alert-warning" role="alert">
     </div>
 
