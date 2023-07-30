@@ -2,10 +2,7 @@
 
 require './functions.php';
 
-$user = query("SELECT user.id, user.user_name, user.address, package.id, package.package_name, transaction.id, transaction.start, transaction.end
-FROM user
-JOIN package ON user.id = package.id
-JOIN transaction ON user.user_name = transaction.user_name");
+$user = query("SELECT * FROM user");
 
 // create check
 if (isset($_POST["submit"])) {
@@ -121,11 +118,10 @@ if (isset($_POST["submit"])) {
                             <thead class="text-white sticky top-0 bg-neutral-700">
                                 <tr>
                                     <th class="p-3 text-left w-1/12">No</th>
-                                    <th class="p-3 text-left w-2/12">Name</th>
-                                    <th class="p-3 text-center w-4/6">Address</th>
-                                    <th class="p-3 text-left w-2/12">Package</th>
-                                    <th class="p-3 text-left w-1/12">Start</th>
-                                    <th class="p-3 text-left w-1/12">End</th>
+                                    <th class="p-3 text-left w-3/12">Name</th>
+                                    <th class="p-3 text-center w-3/6">Address</th>
+                                    <th class="p-3 text-left w-3/12">Comment</th>
+                                    <th class="p-3 text-center w-1/12">Action</th>
                                 </tr>
                             </thead>
 
@@ -139,24 +135,19 @@ if (isset($_POST["submit"])) {
                                         <td class="p-3 user_name" id="user_name">
                                             <?= $row["user_name"]; ?>
                                         </td>
-                                        <td class="p-3 text-center address" id="address">
+                                        <td class="p-2 text-center address" id="address">
                                             <?= $row["address"]; ?>
                                         </td>
-                                        <td class="p-3 package_name" id="package_name">
-                                            <?= $row["package_name"]; ?>
-                                        </td>
-                                        <td class="p-3 date" id="date">
-                                            <?= $row["date"]; ?>
                                         </td>
                                         <td class="p-3 comment" id="comment">
                                             <?= $row["comment"]; ?>
                                         </td>
                                         <td class="flex justify-center py-3">
-                                            <div class="w-4 mr-2 hover:text-neutral-400 hover:cursor-pointer" title="delete">
+                                            <a href="deleteUser.php?id=<?= $row['id']; ?>" type="button" id="delButton" name="delete" class="w-4 mr-2 hover:text-neutral-400 hover:cursor-pointer" title="delete" onclick="return confirm('Are you sure?');">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                                 </svg>
-                                            </div>
+                                            </a>
                                         </td>
                                     </tr>
                                     <?php $i++; ?>
@@ -189,9 +180,6 @@ if (isset($_POST["submit"])) {
 
                         <label for="user_address" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Address</label>
                         <input type="text" name="address" id="address" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" autocomplete="off" />
-
-                        <label for="package_price" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Date</label>
-                        <input type="date" name="date" id="date" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" autocomplete="off" />
 
                         <label for="package_price" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Comment</label>
                         <input type="text" name="comment" id="comment" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" autocomplete="off" />
