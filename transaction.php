@@ -3,6 +3,7 @@
 require './functions.php';
 
 $transaction = query("SELECT * FROM transaction");
+$users = query("SELECT * FROM user");
 $package = query("SELECT * FROM package");
 
 
@@ -19,19 +20,7 @@ if (isset($_POST["create"])) {
     }
 }
 
-//jika paket sudah diset
-if(isset($_POST["package_name"])){
-    $cari = $_GET["package_name"];
-
-    //ambil data dari database
-    $data = mysqli_query($conn, "SELECT * FROM package WHERE package_name = '$cari'");
-}else{
-    //jika paket belum diset
-    $data = [];
-}
-
-if (isset($_POST["print"])){
-    
+if (isset($_POST["print"])) {
 }
 
 ?>
@@ -92,7 +81,7 @@ if (isset($_POST["print"])){
             </div>
 
             <div class="flex flex-row justify-betwee mt-5">
-                <div class="w-[70%] 2xl:w-[70%] h-[32rem] bg-neutral-600 rounded-lg p-8">
+                <div class="w-[70%] 2xl:w-[70%] h-full bg-neutral-600 rounded-lg p-8">
                     <div class="flex flex-row items-center text-white font-bold">
                         <img width="30" height="30" src="https://img.icons8.com/?size=512&id=15115&format=png" alt="new-transaction" />
                         <h1 class="pl-2">Create Transaction</h1>
@@ -102,33 +91,25 @@ if (isset($_POST["print"])){
                         <div class="flex flex-col text-white mt-6">
                             <div class="flex flex-row w-full items-center pr-10 py-2">
                                 <label for="name" class="w-3/12">Name</label>
-                                <select name="name" id="name" class="form-control h-8 w-9/12 border-none outline-none mt-1 rounded px-4 bg-neutral-500" value="" onChange= "document.getElementById.submit();">
-                                    <?php
-                                        $query = mysqli_query($conn, "SELECT * FROM user");
-                                        while ($data = mysqli_fetch_array($query)) {
-                                        ?>
-                                        <option value="<?=$data['user_name'];?>"><?php echo $data['user_name'];?></option>
-                                        <?php
-                                        }
-                                    ?>
+                                <select name="name" id="name" class="form-control h-8 w-9/12 border-none outline-none mt-1 rounded px-4 bg-neutral-500" value="">
+                                    <option value="0">Select User</option>
+                                    <?php foreach ($users as $user) : ?>
+                                        <option value="<?= $user['user_name'] ?>" class="o_user_name"><?= $user['user_name'] ?></option>
+                                    <?php endforeach; ?>
                                 </select>
                             </div>
                             <div class="flex flex-row w-full items-center pr-10 py-2">
                                 <label for="package" class="w-3/12">Package</label>
-                                <select name="package" id="package" class="form-control h-8 w-9/12 border-none outline-none mt-1 rounded px-4 bg-neutral-500" value="" onChange= "document.getElementById.submit();">
-                                    <?php
-                                        $query = mysqli_query($conn, "SELECT * FROM package");
-                                        while ($data = mysqli_fetch_array($query)) {
-                                        ?>
-                                        <option value="<?=$data['package_name'];?>"><?php echo $data['package_name'];?></option>
-                                        <?php
-                                        }
-                                    ?>
+                                <select name="package" id="package" class="form-control h-8 w-9/12 border-none outline-none mt-1 rounded px-4 bg-neutral-500" value="">
+                                    <option value="0">Select Package</option>
+                                    <?php foreach ($package as $pkg) : ?>
+                                        <option value="<?= $pkg['package_name'] ?>"><?= $pkg['package_name'] ?></option>
+                                    <?php endforeach; ?>
                                 </select>
                             </div>
                             <div class="flex flex-row w-full items-center pr-10 py-2">
                                 <label for="date" class="w-3/12">Date</label>
-                                <input type="date" name="date" id="date" class="h-8 w-9/12 border-none outline-none mt-1 rounded px-4 bg-neutral-500" value="" autocomplete="off" />
+                                <input type="date" name="date" id="date" class="h-8 w-9/12 border-none outline-none mt-1 rounded px-4 bg-neutral-700" autocomplete="off" readonly />
                             </div>
                             <div class="flex flex-row w-full items-center pr-10 py-2">
                                 <label for="start" class="w-3/12">Start</label>
@@ -138,15 +119,16 @@ if (isset($_POST["print"])){
                                 <label for="end" class="w-3/12">End</label>
                                 <input type="date" name="end" id="end" class="h-8 w-9/12 border-none outline-none mt-1 rounded px-4 bg-neutral-500" value="" autocomplete="off" />
                             </div>
-                            <div class="flex flex-row w-full items-center pr-10 py-2">
+                            <!-- <div class="flex flex-row w-full items-center pr-10 py-2">
                                 <label for="price" class="w-3/12">Price</label>
                                 <div class="price-input w-9/12 flex justify-between">
-                                    <input type="text" class="h-8 w-1/12 border-none outline-none mt-1 mr-2 px-1 text-center rounded bg-neutral-500" value="Rp." disabled />
-                                    <input type="text" name="price" id="price" class="h-8 w-11/12 border-none outline-none mt-1 rounded px-4 bg-neutral-500" value="" />
+                                    <input type="text" class="h-8 w-1/12 border-none outline-none mt-1 mr-2 px-1 text-center rounded bg-neutral-700" value="Rp." disabled />
+                                    <input type="text" name="price" id="price" class="h-8 w-11/12 border-none outline-none mt-1 rounded px-4 bg-neutral-700" value="" autocomplete="off" readonly />
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="flex flex-row justify-end w-full items-center pr-10 py-2 mt-6">
                                 <button type="submit" name="create" class="bg-neutral-500 text-white rounded-md px-4 py-2 transition duration-300 ease select-none hover:bg-neutral-700 focus:outline-none focus:shadow-outline">Create</button>
+
                             </div>
                         </div>
                     </form>
@@ -176,13 +158,14 @@ if (isset($_POST["print"])){
                         <table class="table-fixed overflow-y-scroll text-white border-collapse space-y-6 text-sm w-full">
                             <thead class="text-white sticky top-0 bg-neutral-700">
                                 <tr>
-                                    <th class="p-3 text-left w-1/12">No</th>
-                                    <th class="p-3 text-left w-2/12">Name</th>
-                                    <th class="p-3 text-left w-2/12">Package</th>
-                                    <th class="p-3 text-left w-2/12">Date</th>
-                                    <th class="p-3 text-left w-2/12">Start</th>
-                                    <th class="p-3 text-left w-2/12">End</th>
-                                    <th class="p-3 text-left w-1/12">Action</th>
+                                    <th class="p-3 text-left w-[5%]">No</th>
+                                    <th class="p-3 text-left w-[20%]">Name</th>
+                                    <th class="p-3 text-left w-[20%]">Package</th>
+                                    <th class="p-3 text-left w-[11%]">Date</th>
+                                    <th class="p-3 text-left w-[11%]">Start</th>
+                                    <th class="p-3 text-left w-[11%]">End</th>
+                                    <th class="p-3 text-left w-[11%]">Price</th>
+                                    <th class="p-3 text-left w-[11%]">Action</th>
                                 </tr>
                             </thead>
 
@@ -199,7 +182,7 @@ if (isset($_POST["print"])){
                                         <td class="p-3">
                                             <?= $row["package_name"]; ?>
                                         </td>
-                                        <td class="p-3">
+                                        <td class="p-3 date-col">
                                             <?= $row["date"]; ?>
                                         </td>
                                         <td class="p-3">
@@ -208,8 +191,11 @@ if (isset($_POST["print"])){
                                         <td class="p-3">
                                             <?= $row["end"]; ?>
                                         </td>
+                                        <td class="p-3 price-col">
+                                            <?= $row["price"]; ?>
+                                        </td>
                                         <td class="flex justify-center py-3">
-                                            <a type="button" id="editButton" class="editButton w-4 mr-2 hover:text-neutral-400 hover:cursor-pointer" title="edit" onclick="modalHandler(true);" data-bs-toggle="modal" data-bs-target="#ubahModal" data-id_transaction="<?= $row['id'] ?>" data-name="<?= $row['user_name'];?>" data>
+                                            <a type="button" id="editButton" class="editButton w-4 mr-2 hover:text-neutral-400 hover:cursor-pointer" title="edit" onclick="modalHandler(true);" data-bs-toggle="modal" data-bs-target="#ubahModal" data-id_transaction="<?= $row['id'] ?>" data-name="<?= $row['user_name']; ?>" data>
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                                                 </svg>
@@ -231,15 +217,36 @@ if (isset($_POST["print"])){
         </div>
     </div>
 
+    <script src="./src/script.js"></script>
     <script>
+        // format price number
         let IDR = new Intl.NumberFormat('id-ID', {
             style: 'currency',
             currency: 'IDR',
         });
 
         for (let i = 0; i < <?= $i - 1; ?>; i++) {
-            document.getElementsByClassName("price-coll")[i].innerText = IDR.format(document.getElementsByClassName("price-coll")[i].innerText);
+            document.getElementsByClassName("price-col")[i].innerText = IDR.format(document.getElementsByClassName("price-col")[i].innerText);
         }
+
+        // date format for input
+        const date = new Date();
+        let day = '' + date.getDate();
+        let month = '' + (date.getMonth() + 1);
+        let year = date.getFullYear();
+
+        if (month.length < 2) {
+            month = '0' + month;
+        }
+        if (day.length < 2) {
+            day = '0' + day;
+        }
+
+        let currentDate = `${year}-${month}-${day}`;
+
+        $("select#package").change(function() {
+            document.getElementById("date").value = currentDate;
+        })
     </script>
 
 </body>
