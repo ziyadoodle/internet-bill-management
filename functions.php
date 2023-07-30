@@ -113,7 +113,7 @@ function create_transaction($data)
     $end = htmlspecialchars($data["end"]);
     $price = htmlspecialchars($data["price"]);
 
-    $query = "INSERT INTO transaction VALUES (NULL, '$name', '$date', '$package', '$start', '$end')";
+    $query = "INSERT INTO transaction VALUES (NULL, '$name', '$date', '$package', '$start', '$end', '$price')";
     mysqli_query($conn, $query);
 
     return mysqli_affected_rows($conn);
