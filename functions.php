@@ -18,6 +18,8 @@ function koneksi()
     return $conn;
 }
 
+$conn = koneksi();
+
 $conn = mysqli_connect("localhost", "root", "", "internet_bill");
 
 function query($query)
@@ -33,7 +35,47 @@ function query($query)
     return $rows;
 }
 
-<<<<<<< HEAD
+function login($data)
+{
+    global $conn;
+
+    // Check if 'username' and 'password' fields are submitted
+    if (isset($data["username"]) && isset($data["password"])) {
+        $username = strtolower($data["username"]);
+        $password = mysqli_real_escape_string($conn, $data["password"]);
+
+        $query = "SELECT * FROM account WHERE username = '$username'";
+        $result = mysqli_query($conn, $query);
+
+        if ($result && mysqli_num_rows($result) === 1) {
+            $user = mysqli_fetch_assoc($result);
+            $hashedPassword = $user['password'];
+
+            // Verify the password using password_verify()
+            if (password_verify($password, $hashedPassword)) {
+                // Password is correct, set session and redirect to the desired page (e.g., index.php)
+                $_SESSION['username'] = $user['username'];
+                header("Location: index.php");
+                exit();
+            } else {
+                // Password is incorrect, show an error message
+                echo "<script>alert('Username or password is incorrect.');</script>";
+                return false;
+            }
+        } else {
+            // User not found, show an error message
+            echo "<script>alert('Username or password is incorrect.');</script>";
+            return false;
+        }
+    } else {
+        // If 'username' or 'password' is not submitted, show an error message
+        echo "<script>alert('Please enter both username and password.');</script>";
+        return false;
+    }
+}
+
+
+
 function registrasi($data)
 {
     global $conn;
@@ -68,7 +110,6 @@ function registrasi($data)
     }
 }
 
-=======
 // ⭐⭐⭐ USER START ⭐⭐⭐
 
 function create_user($data)
@@ -97,7 +138,6 @@ function create_user($data)
 
 
 
->>>>>>> e0049c9ad5434021f29c4d40e64ba3dbf9948fdb
 // ⭐⭐⭐ PACKAGE ⭐⭐⭐
 function create_package($data)
 {
@@ -148,9 +188,7 @@ function delete_package($id)
 }
 // ⭐⭐⭐ PACKAGE ⭐⭐⭐
 
-<<<<<<< HEAD
 
-=======
 //TRANSACTION
 function create_transaction($data)
 {
@@ -225,4 +263,3 @@ function report_transactions($from, $to)
 }
 
 //TRANSACTION
->>>>>>> e0049c9ad5434021f29c4d40e64ba3dbf9948fdb
