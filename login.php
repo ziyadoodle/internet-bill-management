@@ -50,12 +50,12 @@ if (isset($_POST['login'])) {
             <h1 class="text-4xl 2xl:text-6xl text-white font-bold">Hey,Hello ! 👋</h1>
             <h1 class="text-lg 2xl:text-2xl text-white">Welcome to MIKROBILL.</h1>
           </div>
-          <form class="pt-20 z-10" method="POST">
+          <form class="w-full" method="POST">
             <div class="mb-4 ">
               <label class="block text-white text-sm font-bold mb-2" for="username">
                 Username
               </label>
-              <input class=" shadow appearance-none border rounded w-full py-2 px-40 text-white leading-tight focus:outline-none focus:shadow-outline bg-transparent" id="username" type="text" placeholder="Username">
+              <input class="shadow appearance-none border rounded w-full p-4 text-white leading-tight focus:outline-none focus:shadow-outline bg-transparent" id="username" type="text" placeholder="Username">
             </div>
             <div class="mb-4 2xl:mb-8">
               <label class="block text-white text-sm font-bold mb-2" for="password">Password</label>
