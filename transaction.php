@@ -159,12 +159,12 @@ if (isset($_POST["print"])) {
                             <thead class="text-white sticky top-0 bg-neutral-700">
                                 <tr>
                                     <th class="p-3 text-left w-[5%]">No</th>
-                                    <th class="p-3 text-left w-[20%]">Name</th>
-                                    <th class="p-3 text-left w-[20%]">Package</th>
-                                    <th class="p-3 text-left w-[11%]">Date</th>
-                                    <th class="p-3 text-left w-[11%]">Start</th>
-                                    <th class="p-3 text-left w-[11%]">End</th>
-                                    <th class="p-3 text-left w-[11%]">Price</th>
+                                    <th class="p-3 text-left w-[18%]">Name</th>
+                                    <th class="p-3 text-left w-[18%]">Package</th>
+                                    <th class="p-3 text-left w-[12%]">Date</th>
+                                    <th class="p-3 text-left w-[12%]">Start</th>
+                                    <th class="p-3 text-left w-[12%]">End</th>
+                                    <th class="p-3 text-left w-[12%]">Price</th>
                                     <th class="p-3 text-left w-[11%]">Action</th>
                                 </tr>
                             </thead>

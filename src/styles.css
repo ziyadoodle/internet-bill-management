@@ -900,6 +900,14 @@ video {
   width: 11%;
 }
 
+.w-\[12\%\] {
+  width: 12%;
+}
+
+.w-\[18\%\] {
+  width: 18%;
+}
+
 .max-w-lg {
   max-width: 32rem;
 }
