@@ -7,10 +7,10 @@ $package = query("SELECT * FROM package");
 
 
 if (isset($_POST["create"])) {
-
     if (create_transaction($_POST) > 0) {
         echo "<script> 
                 alert('Transaksi Berhasil!');
+                document.location.href = 'transaction.php';
             </script>";
     } else {
         echo "<script> 
@@ -20,8 +20,8 @@ if (isset($_POST["create"])) {
 }
 
 //jika paket sudah diset
-if(isset($_POST["package"])){
-    $cari = $_GET["package"];
+if(isset($_POST["package_name"])){
+    $cari = $_GET["package_name"];
 
     //ambil data dari database
     $data = mysqli_query($conn, "SELECT * FROM package WHERE package_name = '$cari'");
@@ -92,7 +92,7 @@ if (isset($_POST["print"])){
             </div>
 
             <div class="flex flex-row justify-betwee mt-5">
-                <div class="w-[70%] 2xl:w-[70%] h-[25rem] bg-neutral-600 rounded-lg p-8">
+                <div class="w-[70%] 2xl:w-[70%] h-[32rem] bg-neutral-600 rounded-lg p-8">
                     <div class="flex flex-row items-center text-white font-bold">
                         <img width="30" height="30" src="https://img.icons8.com/?size=512&id=15115&format=png" alt="new-transaction" />
                         <h1 class="pl-2">Create Transaction</h1>
@@ -102,7 +102,16 @@ if (isset($_POST["print"])){
                         <div class="flex flex-col text-white mt-6">
                             <div class="flex flex-row w-full items-center pr-10 py-2">
                                 <label for="name" class="w-3/12">Name</label>
-                                <input type="text" name="name" id="name" class="h-8 w-9/12 border-none outline-none mt-1 rounded px-4 bg-neutral-500" value="" autocomplete="off" />
+                                <select name="name" id="name" class="form-control h-8 w-9/12 border-none outline-none mt-1 rounded px-4 bg-neutral-500" value="" onChange= "document.getElementById.submit();">
+                                    <?php
+                                        $query = mysqli_query($conn, "SELECT * FROM user");
+                                        while ($data = mysqli_fetch_array($query)) {
+                                        ?>
+                                        <option value="<?=$data['user_name'];?>"><?php echo $data['user_name'];?></option>
+                                        <?php
+                                        }
+                                    ?>
+                                </select>
                             </div>
                             <div class="flex flex-row w-full items-center pr-10 py-2">
                                 <label for="package" class="w-3/12">Package</label>
@@ -185,7 +194,7 @@ if (isset($_POST["print"])){
                                             <?= $i; ?>
                                         </td>
                                         <td class="p-3">
-                                            <?= $row["name"]; ?>
+                                            <?= $row["user_name"]; ?>
                                         </td>
                                         <td class="p-3">
                                             <?= $row["package_name"]; ?>
@@ -199,15 +208,12 @@ if (isset($_POST["print"])){
                                         <td class="p-3">
                                             <?= $row["end"]; ?>
                                         </td>
-                                        <td class="p-3">
-                                            <a href="">Delete</a>
-                                        </td>
                                         <td class="flex justify-center py-3">
-                                            <div class="w-4 mr-2 hover:text-neutral-400 hover:cursor-pointer" title="edit">
+                                            <a type="button" id="editButton" class="editButton w-4 mr-2 hover:text-neutral-400 hover:cursor-pointer" title="edit" onclick="modalHandler(true);" data-bs-toggle="modal" data-bs-target="#ubahModal" data-id_transaction="<?= $row['id'] ?>" data-name="<?= $row['user_name'];?>" data>
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                                                 </svg>
-                                            </div>
+                                            </a>
                                             <div class="w-4 mr-2 hover:text-neutral-400 hover:cursor-pointer" title="delete">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
