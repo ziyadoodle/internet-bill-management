@@ -95,7 +95,7 @@ if (isset($_POST["login"])) {
             </div>
             <div class="mb-4 2xl:mb-8">
               <label class="block text-white text-sm font-bold mb-2" for="password">Password</label>
-              <input id="password" name="password" type="password" class="shadow appearance-none border border-white rounded w-full p-4 text-white  leading-tight focus:outline-none focus:shadow-outline bg-transparent" placeholder="password">
+              <input id="password" name="password" type="password" class="shadow appearance-none border border-white rounded w-full p-4 text-white  leading-tight focus:outline-none focus:shadow-outline bg-transparent" placeholder="Password">
             </div>
             <div class="mb-4 2xl:mb-8">
               <input type="checkbox" name="remember" id="remember">
