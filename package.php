@@ -138,10 +138,10 @@ if (isset($_POST["edit"])) {
                         <table id="table" class="table-fixed overflow-y-scroll text-white border-collapse space-y-6 text-sm w-full">
                             <thead class="text-white sticky top-0 bg-neutral-700">
                                 <tr>
-                                    <th class="p-3 text-left w-1/12">No</th>
+                                    <th class="p-3 text-left w-[5%]">No</th>
                                     <th class="p-3 text-left w-2/12">Name</th>
                                     <th class="p-3 text-center w-4/6">Description</th>
-                                    <th class="p-3 text-left w-2/12">Price</th>
+                                    <th class="p-3 text-left w-[20%]">Price</th>
                                     <th class="p-3 text-left w-1/12">Action</th>
                                 </tr>
                             </thead>
@@ -230,7 +230,7 @@ if (isset($_POST["edit"])) {
 
     <script src="./src/script.js"></script>
     <script>
-        // format number
+        // format price number
         let IDR = new Intl.NumberFormat('id-ID', {
             style: 'currency',
             currency: 'IDR',
