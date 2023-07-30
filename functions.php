@@ -1,3 +1,4 @@
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
 <?php
 
 // database connection
@@ -32,6 +33,42 @@ function query($query)
     return $rows;
 }
 
+<<<<<<< HEAD
+function registrasi($data)
+{
+    global $conn;
+
+    $username = strtolower(stripslashes($data["username"]));
+    $password = mysqli_real_escape_string($conn, $data["password"]);
+    $password2 = mysqli_real_escape_string($conn, $data["password2"]);
+
+    // Periksa apakah password dan konfirmasi password sama
+    if ($password !== $password2) {
+        echo "<script>alert('Konfirmasi password tidak sesuai.');</script>";
+        return false;
+    }
+
+    // Periksa apakah username sudah terdaftar
+    $result = mysqli_query($conn, "SELECT username FROM account WHERE username = '$username'");
+    if (mysqli_fetch_assoc($result)) {
+        echo "<script>alert('Username sudah terdaftar.');</script>";
+        return false;
+    }
+
+    // Jika data valid, lakukan insert ke tabel account
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    $insertQuery = "INSERT INTO account (username, password) VALUES ('$username', '$hashedPassword')";
+    $insertResult = mysqli_query($conn, $insertQuery);
+
+    if ($insertResult) {
+        return true; // Registrasi berhasil
+    } else {
+        echo "<script>alert('Gagal daftar: " . mysqli_error($conn) . "');</script>";
+        return false; // Registrasi gagal
+    }
+}
+
+=======
 // ⭐⭐⭐ USER START ⭐⭐⭐
 
 function create_user($data)
@@ -60,6 +97,7 @@ function create_user($data)
 
 
 
+>>>>>>> e0049c9ad5434021f29c4d40e64ba3dbf9948fdb
 // ⭐⭐⭐ PACKAGE ⭐⭐⭐
 function create_package($data)
 {
@@ -110,6 +148,9 @@ function delete_package($id)
 }
 // ⭐⭐⭐ PACKAGE ⭐⭐⭐
 
+<<<<<<< HEAD
+
+=======
 //TRANSACTION
 function create_transaction($data)
 {
@@ -184,3 +225,4 @@ function report_transactions($from, $to)
 }
 
 //TRANSACTION
+>>>>>>> e0049c9ad5434021f29c4d40e64ba3dbf9948fdb

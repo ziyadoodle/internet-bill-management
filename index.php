@@ -1,7 +1,11 @@
 <?php
+session_start();
 
-require 'functions.php';
-
+// Periksa apakah pengguna sudah login, jika tidak, arahkan kembali ke halaman login
+if (!isset($_SESSION["username"])) {
+    header("Location: login.php");
+    exit();
+}
 ?>
 
 <!doctype html>
@@ -16,6 +20,7 @@ require 'functions.php';
 </head>
 
 <body class="bg-zinc-800">
+    
     <div class="flex flex-row p-6 w-full h-screen">
 
         <div class="basis-2/12">
