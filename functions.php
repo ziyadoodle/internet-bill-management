@@ -159,12 +159,12 @@ function report_transactions($from, $to)
     $to = date_format(date_create($to), 'Y-m-d');
 
     $query = "SELECT user.id, user.user_name, user.address, user.date, user.comment, 
-                     transaction.id AS transaction_id, transaction.package_name, transaction.start, transaction.end, 
-                     package.id AS package_id, package.descriptions, package.price 
-              FROM user 
-              JOIN transaction ON user.user_name = transaction.user_name 
-              JOIN package ON transaction.package_name = package.package_name
-              WHERE transaction.date BETWEEN '$from' AND '$to' ";
+                    transaction.id AS transaction_id, transaction.package_name, transaction.start, transaction.end, 
+                    package.id AS package_id, package.descriptions, package.price 
+            FROM user 
+            JOIN transaction ON user.user_name = transaction.user_name 
+            JOIN package ON transaction.package_name = package.package_name
+            WHERE transaction.date BETWEEN '$from' AND '$to' ";
 
     $result = $conn->query($query);
 
