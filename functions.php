@@ -41,12 +41,11 @@ function create_user($data)
 
     $user_name = htmlspecialchars($data["user_name"]);
     $address = htmlspecialchars($data["address"]);
-    $date = htmlspecialchars($data["date"]);
     $comment = htmlspecialchars($data["comment"]);
 
     $query = "INSERT INTO user
                 VALUES
-                (NULL,'$user_name', '$address', '$date', '$comment')
+                (NULL,'$user_name', '$address', '$comment')
                 ";
 
     mysqli_query($conn, $query);
