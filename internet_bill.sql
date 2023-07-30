@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jul 27, 2023 at 02:24 PM
+-- Generation Time: Jul 29, 2023 at 04:29 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -29,9 +29,9 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `account` (
   `id` int NOT NULL,
-  `username` varchar(50) NOT NULL,
-  `password` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `username` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(50) COLLATE utf8mb4_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -41,10 +41,10 @@ CREATE TABLE `account` (
 
 CREATE TABLE `package` (
   `id` int NOT NULL,
-  `package_name` varchar(100) NOT NULL,
-  `description` varchar(255) NOT NULL,
+  `package_name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `descriptions` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `price` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -54,12 +54,12 @@ CREATE TABLE `package` (
 
 CREATE TABLE `transaction` (
   `id` int NOT NULL,
-  `name` varchar(50) NOT NULL,
+  `user_name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
   `date` date NOT NULL,
-  `package_name` varchar(100) NOT NULL,
+  `package_name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   `start` datetime NOT NULL,
   `end` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -69,10 +69,10 @@ CREATE TABLE `transaction` (
 
 CREATE TABLE `user` (
   `id` int NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `address` varchar(255) NOT NULL,
-  `comment` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `user_name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `address` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `comment` varchar(255) COLLATE utf8mb4_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Indexes for dumped tables
@@ -82,6 +82,12 @@ CREATE TABLE `user` (
 -- Indexes for table `account`
 --
 ALTER TABLE `account`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `package`
+--
+ALTER TABLE `package`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -104,6 +110,12 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `account`
 --
 ALTER TABLE `account`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `package`
+--
+ALTER TABLE `package`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --

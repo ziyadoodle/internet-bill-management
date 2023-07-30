@@ -1,10 +1,17 @@
 <?php
+require 'function.php';
 session_start();
 
-// Periksa apakah pengguna sudah login, jika tidak, arahkan kembali ke halaman login
-if (!isset($_SESSION["username"])) {
-    header("Location: login.php");
-    exit();
+$currentUsername = $_SESSION['username'];
+$currentRole = $_SESSION['role'];
+
+
+if (isset($_POST['submit'])) {
+    // Get the form data
+    $username = $_POST['username'];
+    $old_password = $_POST['old_password'];
+    $new_password = $_POST['new_password'];
+    $role = $_POST['role'];
 }
 ?>
 
@@ -15,12 +22,9 @@ if (!isset($_SESSION["username"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="./src/styles.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
-
 </head>
 
 <body class="bg-zinc-800">
-    
     <div class="flex flex-row p-6 w-full h-screen">
 
         <div class="basis-2/12">
@@ -79,107 +83,48 @@ if (!isset($_SESSION["username"])) {
                 <div class="text-white text-base font-normal">time</div>
             </div>
             <div class="flex flex-col text-white font-bold mt-10">
-                <h2 class="text-3xl font-semibold ">Overview</h2>
-                <p class="text-md font-normal">Here what’s happening in your finance</p>
+                <h2 class="text-3xl font-semibold ">Update Account</h2>
+                <p class="text-md font-normal">Here to Update Your Account !</p>
             </div>
-            <div class="flex flex-row justify-between mt-5">
-                <div class="w-[70%] 2xl:w-[70%] h-[22rem] bg-neutral-600 rounded-lg p-8">
-                    <div class="flex flex-col text-white">
-                        <canvas id="chart"></canvas>
+            <div class="flex flex-row justify-between mt-5 bg-neutral-600 rounded-lg">
+                <div class="w-[30%] 2xl:w-[30%] p-5">
+                    <div class="flex flex-col items-center my-20">
+                        <img width="100" height="100" src="https://img.icons8.com/ios-filled/100/ffffff/user-male-circle.png" alt="user-male-circle" />
                     </div>
                 </div>
-                <div class="flex flex-col w-[30%] bg-neutral-600 rounded-xl ml-10">
-                    <div class="flex flex-col text-center p-4 font-semibold text-white">
-                        <h3 class="text-xl">Recent Transaction</h3>
-                        <div class="mx-auto my-5 w-20 bg-gray-200 h-[2px]"></div>
-                    </div>
-                    <div class="flex flex-row justify-between p-4 text-white">
-                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 14 18">
-                            <path d="M7 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm2 1H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z" />
-                        </svg>
-                        <h1 class="pl-2">Ziyad Fakhri</h1>
-                        <h1 class="ml-20 text-md">date</h1>
-                    </div>
-                </div>
-            </div>
+                <div class="w-[70%] 2xl:w-[70%] h-[22rem] p-5">
+                    <form action="POST">
+                        <div class="flex flex-col text-white mt-10">
+                            <div class="flex flex-row w-full items-center pr-10">
+                                <label for="name" class="w-3/12">Username</label>
+                                <input type="text" name="username" id="username" class="h-8 w-9/12 border-none outline-none mt-4 rounded px-4 bg-neutral-500" value="" autocomplete="off"" />
+                        </div>
+                        <div class=" flex flex-row w-full items-center pr-10">
+                                <label for="name" class="w-3/12">Old Password</label>
+                                <input type="text" name="old_password" id="old_password" class="h-8 w-9/12 border-none outline-none mt-4 rounded px-4 bg-neutral-500" value="" autocomplete="off"" />
+                        </div>
+                        <div class=" flex flex-row w-full items-center pr-10">
+                                <label for="name" class="w-3/12">New Password</label>
+                                <input type="text" name="new_password" id="new_password" class="h-8 w-9/12 border-none outline-none mt-4 rounded px-4 bg-neutral-500" value="" autocomplete="off"" />
+                        </div>
+                        <div class=" flex flex-row w-full items-center pr-10">
+                                <label for="name" class="w-3/12">Role</label>
+                                <input type="text" name="role" id="role" class="h-8 w-9/12 border-none outline-none mt-4 rounded px-4 bg-neutral-500" value="" autocomplete="off"" />
+                        </div>
 
-            <div class="flex flex-row justify-between mt-10">
-                <div class="w-[40%] 2xl:w-[40%] h-[18rem] bg-neutral-600 rounded-lg p-8">
-                    <div class="flex flex-col text-center font-semibold text-white ">
-                        <h3 class="text-xl">Package of Internet</h3>
-                        <div class="mx-auto my-5 w-20 bg-gray-200 h-[2px]"></div>
-                    </div>
-                    <div class="flex flex-col text-white">
-                        <div class="flex flex-row justify-between mt-3">
-                            <img width="25" height="25" src="https://img.icons8.com/ios-filled/50/ffffff/student-male--v1.png" alt="student-male--v1" />
-                            <h1 class="pl-2 font-semibold text-md">Paket Pelajar</h1>
-                            <h1 class="text-md">150/Month</h1>
+                        <div class=" flex flex-row justify-end w-full items-center pr-10 py-2 mt-3">
+                                <button type="submit" name="submit" class="bg-neutral-500 text-white rounded-md px-4 py-2 transition duration-300 ease select-none hover:bg-neutral-700 focus:outline-none focus:shadow-outline flex items-center space-x-1">
+                                    <img width="20" height="20" src="https://img.icons8.com/ios-filled/50/ffffff/synchronize.png" alt="synchronize" />
+                                    <span>Update</span>
+                                </button>
+                            </div>
                         </div>
-                        <div class="flex flex-row justify-between mt-3">
-                            <img width="25" height="25" src="https://img.icons8.com/ios-glyphs/30/ffffff/tuition--v1.png" alt="tuition--v1" />
-                            <h1 class="pl-2 font-semibold text-md">Paket Guru</h1>
-                            <h1 class="text-md">150/Month</h1>
-                        </div>
-                        <div class="flex flex-row justify-between mt-3">
-                            <img width="25" height="25" src="https://img.icons8.com/ios-filled/50/ffffff/ps-controller.png" alt="ps-controller" />
-                            <h1 class="pl-2 font-semibold text-md">Paket Gamer</h1>
-                            <h1 class="text-md">220/Month</h1>
-                        </div>
-                        <div class="flex flex-row justify-between mt-3">
-                            <img width="25" height="25" src="https://img.icons8.com/pastel-glyph/25/ffffff/company--v2.png" alt="company--v2" />
-                            <h1 class="pl-2 font-semibold text-md">Paket Bisnis</h1>
-                            <h1 class="text-md">300/Month</h1>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex flex-col w-[60%] bg-neutral-600 rounded-xl p-8 ml-10">
-                    <div class="flex flex-col text-center font-semibold">
-                        <h3 class="text-white text-2xl">Total Income of The Month</h3>
-                        <h3 class="text-white mt-20 text-4xl">Rp.3.000.000</h3>
-                    </div>
-
+                    </form>
                 </div>
             </div>
-
         </div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Get the chart canvas element
-            const ctx = document.getElementById('chart').getContext('2d');
-
-            // Define the chart data
-            const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'];
-            const data = {
-                labels: labels,
-                datasets: [{
-                    label: 'My First Dataset',
-                    data: [65, 59, 80, 81, 56, 55, 40, 81, 56, 55, 40, 20],
-                    backgroundColor: 'rgba(54, 162, 235, 0.8)',
-                    barThickness: 20,
-                }]
-            };
-
-            // Define the chart options
-            const chartOptions = {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                },
-            };
-
-            // Create and render the bar chart
-            new Chart(ctx, {
-                type: 'bar',
-                data: data,
-                options: chartOptions
-            });
-        });
-    </script>
 </body>
 
 </html>
