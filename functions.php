@@ -128,9 +128,12 @@ function create_transaction($data)
     $date = htmlspecialchars($data["date"]);
     $start = htmlspecialchars($data["start"]);
     $end = htmlspecialchars($data["end"]);
-    $price = htmlspecialchars($data["price"]);
 
-    $query = "INSERT INTO transaction VALUES (NULL, '$name', '$date', '$package', '$start', '$end')";
+    $selectPrice = query("SELECT * FROM package WHERE package_name = '$package'");
+    var_dump($selectPrice);
+    $price = $selectPrice[0]["price"];
+
+    $query = "INSERT INTO transaction VALUES (NULL, '$name', '$date', '$package', '$start', '$end', $price)";
     mysqli_query($conn, $query);
 
     return mysqli_affected_rows($conn);
