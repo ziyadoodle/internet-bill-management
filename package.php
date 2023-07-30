@@ -4,9 +4,6 @@ require './functions.php';
 
 $package = query("SELECT * FROM package");
 
-// $id = $_GET["id"];
-// $packageId = query("SELECT * FROM package WHERE id = $id")[0];
-
 // create check
 if (isset($_POST["submit"])) {
     if (create_package($_POST) > 0) {
@@ -103,7 +100,6 @@ if (isset($_POST["edit"])) {
                 <div class="text-white text-base font-normal">time</div>
             </div>
 
-
             <div class="flex flex-col w-[70%] 2xl:w-[60%] h-[22rem] bg-neutral-600 rounded-lg p-8 mt-10 2xl:mt-24">
                 <div class="flex flex-row items-center text-white font-bold">
                     <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/FFFFFF/new-product.png" alt="new-product" />
@@ -142,10 +138,10 @@ if (isset($_POST["edit"])) {
                         <table id="table" class="table-fixed overflow-y-scroll text-white border-collapse space-y-6 text-sm w-full">
                             <thead class="text-white sticky top-0 bg-neutral-700">
                                 <tr>
-                                    <th class="p-3 text-left w-1/12">No</th>
+                                    <th class="p-3 text-left w-[5%]">No</th>
                                     <th class="p-3 text-left w-2/12">Name</th>
                                     <th class="p-3 text-center w-4/6">Description</th>
-                                    <th class="p-3 text-left w-2/12">Price</th>
+                                    <th class="p-3 text-left w-[20%]">Price</th>
                                     <th class="p-3 text-left w-1/12">Action</th>
                                 </tr>
                             </thead>
@@ -167,16 +163,16 @@ if (isset($_POST["edit"])) {
                                             <?= $row["price"]; ?>
                                         </td>
                                         <td class="flex justify-center py-3">
-                                            <a type="button" id="editButton" class="editButton w-4 mr-2 hover:text-neutral-400 hover:cursor-pointer" title="edit" onclick="modalHandler(true);" data-bs-toggle="modal" data-bs-target="#ubahModal" data-id_package="<?= $row['id'] ?>" data-package_name="<?= $row['package_name'] ?>" data-desc="<?= $row['descriptions'] ?>" data-price="<?= $row['price'] ?>">
+                                            <a type="button" id="editButton" class="editButton w-4 mr-2 hover:text-neutral-400 hover:cursor-pointer" title="edit" onclick="modalHandler(true);" data-id_package="<?= $row['id'] ?>" data-package_name="<?= $row['package_name'] ?>" data-desc="<?= $row['descriptions'] ?>" data-price="<?= $row['price'] ?>">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                                                 </svg>
                                             </a>
-                                            <div class="w-4 mr-2 hover:text-neutral-400 hover:cursor-pointer" title="delete">
+                                            <a href="packageDelete.php?id=<?= $row['id']; ?>" type="button" id="delButton" name="delete" class="w-4 mr-2 hover:text-neutral-400 hover:cursor-pointer" title="delete" onclick="return confirm('Are you sure?');">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                                 </svg>
-                                            </div>
+                                            </a>
                                         </td>
                                     </tr>
                                     <?php $i++; ?>
@@ -234,7 +230,7 @@ if (isset($_POST["edit"])) {
 
     <script src="./src/script.js"></script>
     <script>
-        // format number
+        // format price number
         let IDR = new Intl.NumberFormat('id-ID', {
             style: 'currency',
             currency: 'IDR',

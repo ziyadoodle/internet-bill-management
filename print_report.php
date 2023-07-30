@@ -8,19 +8,19 @@ $to = $_GET['to'];
 
 // Melakukan pemrosesan dan pengambilan data laporan berdasarkan periode yang dipilih
 include 'functions.php';
-$conn = koneksi();
+global $conn;
 $dataLaporan = report_transactions($from, $to);
 
 // Membuat dokumen PDF untuk mencetak laporan
 require('fpdf/fpdf.php');
-
+ob_start();
 class FPDF_AutoWrapTable extends FPDF
 {
     private $data = array();
     private $options = array(
         'filename' => '',
         'destinationfile' => '',
-        'paper_size' => 'F4',
+        'paper_size' => 'A4',
         'orientation' => 'P',
     );
 
@@ -38,7 +38,6 @@ class FPDF_AutoWrapTable extends FPDF
         $this->AddPage();
         $this->SetAutoPageBreak(true, 60);
         $this->AliasNbPages();
-        $left = 25;
 
         //header
         $this->SetFont("", "B", 15);
@@ -50,10 +49,10 @@ class FPDF_AutoWrapTable extends FPDF
         $this->Cell(0, 10, 'REPORT TRANSACTION', 0, 1, 'C');
         $this->Ln(40);
         $this->SetFont("", "B", 10);
-        $this->SetX(100);
+        $this->SetX(175);
         $this->Cell(138, 1, 'Periode ' . $_GET['from'] . ' s/d ' . $_GET['to'], 0, 1, 'R');
         $this->Ln(10);
-        $this->SetLeftMargin(75, 20);
+        $this->SetLeftMargin(150);
         $h = 20;
         $left = 40;
         $top = 80;
@@ -76,7 +75,7 @@ class FPDF_AutoWrapTable extends FPDF
         $this->Cell(100, $h, 'Tanggal Selesai', 1, 0, 'C', true);
         $this->SetX($left += 100);
         $this->Cell(100, $h, 'Harga', 1, 0, 'C', true);
-        // $this->Ln(2);
+        $this->Ln(20);
 
         $this->SetFont('Arial', '', 9);
         $this->SetWidths(array(20, 75, 100, 100, 100, 100, 100, 100,));
@@ -91,10 +90,10 @@ class FPDF_AutoWrapTable extends FPDF
                     $baris['user_name'],
                     $baris['package_name'],
                     $baris['descriptions'],
-                    $baris['date'],
-                    $baris['start'],
-                    $baris['end'],
-                    $total_biaya = 'Rp ' . number_format($baris['price'], 2, ',', '.'),
+                    date('d-m-Y', strtotime($baris['date'])), // Convert and format the date
+                    date('d-m-Y', strtotime($baris['start'])), // Convert and format the start date
+                    date('d-m-Y', strtotime($baris['end'])),   // Convert and format the end date
+                    $total_biaya = 'Rp ' . number_format($baris['price'], 2, ',', '.')
                 )
             );
         }
@@ -228,3 +227,5 @@ $options = array(
 
 $tabel = new FPDF_AutoWrapTable($dataLaporan, $options);
 $tabel->printPDF();
+
+ob_end_flush();

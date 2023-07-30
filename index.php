@@ -1,11 +1,14 @@
 <?php
-session_start();
+// session_start();
 
-// Periksa apakah pengguna sudah login, jika tidak, arahkan kembali ke halaman login
-if (!isset($_SESSION["username"])) {
-    header("Location: login.php");
-    exit();
-}
+// // Periksa apakah pengguna sudah login, jika tidak, arahkan kembali ke halaman login
+// if (!isset($_SESSION["username"])) {
+//     header("Location: login.php");
+//     exit();
+// }
+require 'functions.php';
+$tableRecent = query('SELECT user_name, date FROM transaction ORDER BY id DESC LIMIT 4');
+
 ?>
 
 <!doctype html>
@@ -20,7 +23,7 @@ if (!isset($_SESSION["username"])) {
 </head>
 
 <body class="bg-zinc-800">
-    
+
     <div class="flex flex-row p-6 w-full h-screen">
 
         <div class="basis-2/12">
@@ -91,15 +94,19 @@ if (!isset($_SESSION["username"])) {
                 <div class="flex flex-col w-[30%] bg-neutral-600 rounded-xl ml-10">
                     <div class="flex flex-col text-center p-4 font-semibold text-white">
                         <h3 class="text-xl">Recent Transaction</h3>
-                        <div class="mx-auto my-5 w-20 bg-gray-200 h-[2px]"></div>
+                        <div class="mx-auto my-2 w-20 bg-gray-200 h-[2px]"></div>
                     </div>
-                    <div class="flex flex-row justify-between p-4 text-white">
-                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 14 18">
-                            <path d="M7 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm2 1H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z" />
-                        </svg>
-                        <h1 class="pl-2">Ziyad Fakhri</h1>
-                        <h1 class="ml-20 text-md">date</h1>
-                    </div>
+
+                    <?php foreach ($tableRecent as $row) : ?>
+                        <div class="flex flex-row justify-between p-4 text-white">
+                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 14 18">
+                                <path d="M7 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm2 1H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z" />
+                            </svg>
+                            <h1 class="pl-1"><?= $row["user_name"]; ?></h1>
+                            <h1><?= $row["date"]; ?></h1>
+                        </div>
+                    <?php endforeach; ?>
+
                 </div>
             </div>
 
@@ -132,6 +139,7 @@ if (!isset($_SESSION["username"])) {
                         </div>
                     </div>
                 </div>
+                
                 <div class="flex flex-col w-[60%] bg-neutral-600 rounded-xl p-8 ml-10">
                     <div class="flex flex-col text-center font-semibold">
                         <h3 class="text-white text-2xl">Total Income of The Month</h3>
