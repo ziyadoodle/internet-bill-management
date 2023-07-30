@@ -35,7 +35,7 @@ if (isset($_POST["tbl_register"])) {
   <section class="flex items-center justify-center h-full">
     <div class="container">
       <div class="flex justify-center items-center">
-        <div class="flex flex-col backdrop-blur-[30px] bg-[#67676733] w-1/2 h-1/2  rounded-3xl justify-center items-center py-8 px-10 2xl:py-16 2xl:px-16 border-solid border-2 border-white ">
+        <div class="flex flex-col backdrop-blur-[30px] bg-[#67676733] w-2/5 2xl:w-1/2 h-1/2  rounded-3xl justify-center items-center py-8 px-10 2xl:py-16 2xl:px-16 border-solid border-2 border-white ">
           <div class="flex flex-col space-y-4 h-full w-full start-14 font-sans mb-6 2xl:mb-12">
             <h1 class="text-4xl 2xl:text-6xl text-white font-bold">Register Here!</h1>
             <h1 class="text-lg 2xl:text-2xl text-white">Please fill the form for register.</h1>

@@ -900,6 +900,10 @@ video {
   width: 100%;
 }
 
+.w-2\/5 {
+  width: 40%;
+}
+
 .max-w-lg {
   max-width: 32rem;
 }
@@ -1290,6 +1294,10 @@ video {
   padding-top: 5rem;
 }
 
+.pl-1 {
+  padding-left: 0.25rem;
+}
+
 .text-left {
   text-align: left;
 }
@@ -1638,6 +1646,10 @@ video {
 
   .\32xl\:w-\[70\%\] {
     width: 70%;
+  }
+
+  .\32xl\:w-1\/2 {
+    width: 50%;
   }
 
   .\32xl\:p-16 {
