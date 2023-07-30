@@ -16,8 +16,41 @@ function query($query)
     return $rows;
 }
 
-// ⭐⭐⭐ USER START ⭐⭐⭐
+function registrasi($data)
+{
+    global $conn;
 
+    $username = strtolower(stripslashes($data["username"]));
+    $password = mysqli_real_escape_string($conn, $data["password"]);
+    $password2 = mysqli_real_escape_string($conn, $data["password2"]);
+
+    // Periksa apakah password dan konfirmasi password sama
+    if ($password !== $password2) {
+        echo "<script>alert('Konfirmasi password tidak sesuai.');</script>";
+        return false;
+    }
+
+    // Periksa apakah username sudah terdaftar
+    $result = mysqli_query($conn, "SELECT username FROM account WHERE username = '$username'");
+    if (mysqli_fetch_assoc($result)) {
+        echo "<script>alert('Username sudah terdaftar.');</script>";
+        return false;
+    }
+
+    // Jika data valid, lakukan insert ke tabel account
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    $insertQuery = "INSERT INTO account (username, password) VALUES ('$username', '$hashedPassword')";
+    $insertResult = mysqli_query($conn, $insertQuery);
+
+    if ($insertResult) {
+        return true; // Registrasi berhasil
+    } else {
+        echo "<script>alert('Gagal daftar: " . mysqli_error($conn) . "');</script>";
+        return false; // Registrasi gagal
+    }
+}
+
+// ⭐⭐⭐ USER START ⭐⭐⭐
 function create_user($data)
 {
     global $conn;
@@ -44,10 +77,7 @@ function delete_user($id)
 
     return mysqli_affected_rows($conn);
 }
-
-
 // ⭐⭐⭐ USER END ⭐⭐⭐
-
 
 
 // ⭐⭐⭐ PACKAGE ⭐⭐⭐
@@ -99,6 +129,7 @@ function delete_package($id)
     return mysqli_affected_rows($conn);
 }
 // ⭐⭐⭐ PACKAGE ⭐⭐⭐
+
 
 //TRANSACTION
 function create_transaction($data)
@@ -164,5 +195,4 @@ function report_transactions($from, $to)
         return array();
     }
 }
-
 //TRANSACTION
