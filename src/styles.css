@@ -728,6 +728,10 @@ video {
   margin-top: 1.5rem;
 }
 
+.mb-1 {
+  margin-bottom: 0.25rem;
+}
+
 .block {
   display: block;
 }
@@ -1265,6 +1269,11 @@ video {
   padding-bottom: 2rem;
 }
 
+.px-10 {
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
+}
+
 .pl-2 {
   padding-left: 0.5rem;
 }
@@ -1333,6 +1342,11 @@ video {
 
 .text-xl {
   font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.text-lg {
+  font-size: 1.125rem;
   line-height: 1.75rem;
 }
 
@@ -1598,6 +1612,18 @@ video {
     margin-bottom: 2rem;
   }
 
+  .\32xl\:mb-12 {
+    margin-bottom: 3rem;
+  }
+
+  .\32xl\:mb-2 {
+    margin-bottom: 0.5rem;
+  }
+
+  .\32xl\:mt-5 {
+    margin-top: 1.25rem;
+  }
+
   .\32xl\:w-\[30\%\] {
     width: 30%;
   }
@@ -1621,5 +1647,25 @@ video {
   .\32xl\:px-20 {
     padding-left: 5rem;
     padding-right: 5rem;
+  }
+
+  .\32xl\:px-16 {
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+
+  .\32xl\:py-16 {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  .\32xl\:text-6xl {
+    font-size: 3.75rem;
+    line-height: 1;
+  }
+
+  .\32xl\:text-2xl {
+    font-size: 1.5rem;
+    line-height: 2rem;
   }
 }
