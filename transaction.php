@@ -195,16 +195,16 @@ if (isset($_POST["print"])) {
                                             <?= $row["price"]; ?>
                                         </td>
                                         <td class="flex justify-center py-3">
-                                            <a type="button" id="editButton" class="editButton w-4 mr-2 hover:text-neutral-400 hover:cursor-pointer" title="edit" onclick="modalHandler(true);" data-bs-toggle="modal" data-bs-target="#ubahModal" data-id_transaction="<?= $row['id'] ?>" data-name="<?= $row['user_name']; ?>" data>
+                                            <a type="button" id="editButton" class="editButton w-4 mr-2 hover:text-neutral-400 hover:cursor-pointer" title="edit" onclick="modalHandler(true);" data-id_transaction="<?= $row['id'] ?>" data-user_name="<?= $row['user_name'] ?>" data-date="<?= $row['date'] ?>" data-start="<?= $row['start'] ?>" data-end="<?= $row['end'] ?>" data-price="<?= $row['price'] ?>">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                                                 </svg>
                                             </a>
-                                            <div class="w-4 mr-2 hover:text-neutral-400 hover:cursor-pointer" title="delete">
+                                            <a href="transactionDelete.php?id=<?= $row['id']; ?>" type="button" id="delButton" name="delete" class="w-4 mr-2 hover:text-neutral-400 hover:cursor-pointer" title="delete" onclick="return confirm('Are you sure?');">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                                 </svg>
-                                            </div>
+                                            </a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -213,6 +213,67 @@ if (isset($_POST["print"])) {
                         </table>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div class="py-12 bg-gradient-to-b from-purple-800 to-transparent transition duration-150 ease-in-out z-10 absolute hidden top-0 right-0 bottom-0 left-0" id="modal">
+        <div role="alert" class="container mx-auto w-11/12 md:w-2/3 max-w-lg">
+            <div class="relative py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400">
+                <div class="w-full flex justify-start text-gray-600 mb-3">
+                    <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/4B5563/new-product.png" alt="new-product" />
+                </div>
+                <h1 class="text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">Edit Data Transaksi</h1>
+
+                <form action="" method="POST">
+                    <div class="modal-body">
+                        <input type="hidden" name="id_transaction" id="id_transaction_i" class="id_transaction">
+
+                        <label for="transaction_user_name" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Name</label>
+                        <select name="transaction_user_name" id="transaction_user_name_i" class="form-control mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" value="">
+                                    <option value="0">Select User</option>
+                                    <?php foreach ($users as $user) : ?>
+                                        <option value="<?= $user['user_name'] ?>" class="o_user_name"><?= $user['user_name'] ?></option>
+                                    <?php endforeach; ?>
+                        </select>
+
+                        <label for="transaction_package_name" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Package Name</label>
+                        <select name="transaction_package_name" id="transaction_package_name_i" class="form-control mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" value="">
+                                    <option value="0">Select Package</option>
+                                    <?php foreach ($package as $pkg) : ?>
+                                        <option value="<?= $pkg['package_name'] ?>"><?= $pkg['package_name'] ?></option>
+                                    <?php endforeach; ?>
+                        </select>
+
+                        <label for="transaction_date" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Date</label>
+                        <input type="date" name="transaction_date" id="transaction_date_i" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" autocomplete="off" readonly />
+
+                        <label for="transaction_start" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Start</label>
+                        <input type="date" name="transaction_start" id="transaction_start_i" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" autocomplete="off"/>
+
+                        <label for="transaction_end" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">End</label>
+                        <input type="date" name="transaction_end" id="transaction_end_i" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" autocomplete="off" />
+
+                        <label for="transaction_package_price" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Price</label>
+                        <input type="text" name="transaction_package_price" id="transaction_package_price_i" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" autocomplete="off" readonly/>
+
+                        <div class="flex items-center justify-start w-full">
+                            <button type="submit" name="edit" class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-8 py-2 text-sm">Submit</button>
+                            <button class="focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-gray-400 ml-3 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm" onclick="modalHandler()">Cancel</button>
+                        </div>
+
+                        <button class="cursor-pointer absolute top-0 right-0 mt-4 mr-5 text-gray-400 hover:text-gray-600 transition duration-150 ease-in-out rounded focus:ring-2 focus:outline-none focus:ring-gray-600" onclick="modalHandler()" aria-label="close modal" role="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="20" height="20" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" />
+                                <line x1="18" y1="6" x2="6" y2="18" />
+                                <line x1="6" y1="6" x2="18" y2="18" />
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+
+
             </div>
         </div>
     </div>
@@ -229,25 +290,60 @@ if (isset($_POST["print"])) {
             document.getElementsByClassName("price-col")[i].innerText = IDR.format(document.getElementsByClassName("price-col")[i].innerText);
         }
 
-        // date format for input
-        const date = new Date();
-        let day = '' + date.getDate();
-        let month = '' + (date.getMonth() + 1);
-        let year = date.getFullYear();
+        // modal
+        let modal = document.getElementById("modal");
 
-        if (month.length < 2) {
-            month = '0' + month;
-        }
-        if (day.length < 2) {
-            day = '0' + day;
+        function modalHandler(val) {
+            if (val) {
+                fadeIn(modal);
+            } else {
+                fadeOut(modal);
+            }
         }
 
-        let currentDate = `${year}-${month}-${day}`;
+        function fadeOut(el) {
+            el.style.opacity = 1;
+            (function fade() {
+                if ((el.style.opacity -= 0.1) < 0) {
+                    el.style.display = "none";
+                } else {
+                    requestAnimationFrame(fade);
+                }
+            })();
+        }
 
-        $("select#package").change(function() {
-            document.getElementById("date").value = currentDate;
-        })
+        function fadeIn(el, display) {
+            el.style.opacity = 0;
+            el.style.display = display || "flex";
+            (function fade() {
+                let val = parseFloat(el.style.opacity);
+                if (!((val += 0.2) > 1)) {
+                    el.style.opacity = val;
+                    requestAnimationFrame(fade);
+                }
+            })();
+        }
+
+        // edit
+        $(document).on("click", "#editButton", function() {
+            let tId = $(this).data('id_transaction');
+            let tName = $(this).data('user_name');
+            let tPackage = $(this).data('package_name');
+            let tDate = $(this).data('date');
+            let tStart = $(this).data('start');
+            let tEnd = $(this).data('end');
+            let tPrice = $(this).data('price');
+
+            $(".modal-body #id_transaction_i").val(tId);
+            $(".modal-body #transaction_user_name_i").val(tName);
+            $(".modal-body #transaction_package_name_i").val(tPackage);
+            $(".modal-body #transaction_date_i").val(tDate);
+            $(".modal-body #transaction_start_i").val(tStart);
+            $(".modal-body #transaction_end_i").val(tEnd);
+            $(".modal-body #transaction_package_price_i").val(tPrice);
+        });
     </script>
+
 
 </body>
 

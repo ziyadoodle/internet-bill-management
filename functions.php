@@ -121,6 +121,15 @@ function create_transaction($data)
     return mysqli_affected_rows($conn);
 }
 
+function delete_transaction($id)
+{
+    global $conn;
+
+    mysqli_query($conn, "DELETE FROM transaction WHERE id = $id");
+
+    return mysqli_affected_rows($conn);
+}
+
 
 function report_transactions($from, $to)
 {
