@@ -32,20 +32,21 @@ if (isset($_POST["tbl_register"])) {
 </head>
 
 <body class="bg-zinc-800 h-screen">
+
   <section class="flex items-center justify-center h-full">
     <div class="container">
       <div class="flex justify-center items-center">
-        <div class="flex flex-col backdrop-blur-[30px] bg-[#67676733] w-2/5 2xl:w-1/2 h-1/2  rounded-3xl justify-center items-center py-8 px-10 2xl:py-16 2xl:px-16 border-solid border-2 border-white ">
+        <div class="flex flex-col backdrop-blur-[30px] bg-[#67676733] w-2/5 2xl:w-1/2 h-1/2  rounded-3xl justify-center items-center py-8 px-10 2xl:py-16 2xl:px-16 border-solid border-2 border-white">
           <div class="flex flex-col space-y-4 h-full w-full start-14 font-sans mb-6 2xl:mb-12">
             <h1 class="text-4xl 2xl:text-6xl text-white font-bold">Register Here!</h1>
             <h1 class="text-lg 2xl:text-2xl text-white">Please fill the form for register.</h1>
           </div>
-          <form class="w-full" method="post">
+          <form class="w-full" method="POST">
             <div class="mb-4 2xl:mb-8">
               <label class="block text-white text-sm font-bold mb-2" for="username">
                 Username
               </label>
-              <input class="shadow appearance-none border rounded w-full p-4 text-white leading-tight focus:outline-none focus:shadow-outline  bg-transparent" id="username" type="text" name="username" required autocomplete="off">
+              <input class="shadow appearance-none border rounded w-full p-4 text-white leading-tight focus:outline-none focus:shadow-outline bg-transparent" id="username" type="text" name="username" required autocomplete="off">
             </div>
             <div class="mb-4 2xl:mb-8">
               <label class="block text-white text-sm font-bold mb-2" for="password">
@@ -70,7 +71,7 @@ if (isset($_POST["tbl_register"])) {
       </div>
     </div>
   </section>
-</body>
 
+</body>
 
 </html>

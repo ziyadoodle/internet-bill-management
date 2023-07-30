@@ -24,30 +24,41 @@ function registrasi($data)
     $password = mysqli_real_escape_string($conn, $data["password"]);
     $password2 = mysqli_real_escape_string($conn, $data["password2"]);
 
-    // Periksa apakah password dan konfirmasi password sama
-    if ($password !== $password2) {
-        echo "<script>alert('Konfirmasi password tidak sesuai.');</script>";
-        return false;
-    }
-
     // Periksa apakah username sudah terdaftar
     $result = mysqli_query($conn, "SELECT username FROM account WHERE username = '$username'");
     if (mysqli_fetch_assoc($result)) {
-        echo "<script>alert('Username sudah terdaftar.');</script>";
+        echo "
+            <script>
+                alert('username sudah terdaftar!');
+            </script>
+            ";
+        return false;
+    }
+
+    // Periksa apakah password dan konfirmasi password sama
+    if ($password !== $password2) {
+        echo "
+            <script>
+                alert('password tidak sama!');
+            </script>
+            ";
         return false;
     }
 
     // Jika data valid, lakukan insert ke tabel account
-    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-    $insertQuery = "INSERT INTO account (username, password) VALUES ('$username', '$hashedPassword')";
-    $insertResult = mysqli_query($conn, $insertQuery);
+    $password = password_hash($password, PASSWORD_DEFAULT);
+    mysqli_query($conn, "INSERT INTO account VALUES(NULL, '$username', '$password')");
 
-    if ($insertResult) {
-        return true; // Registrasi berhasil
-    } else {
-        echo "<script>alert('Gagal daftar: " . mysqli_error($conn) . "');</script>";
-        return false; // Registrasi gagal
-    }
+    return mysqli_affected_rows($conn);
+    // $insertQuery = "INSERT INTO account (username, password) VALUES ('$username', '$hashedPassword')";
+    // $insertResult = mysqli_query($conn, $insertQuery);
+
+    // if ($insertResult) {
+    //     return true; // Registrasi berhasil
+    // } else {
+    //     echo "<script>alert('Gagal daftar: " . mysqli_error($conn) . "');</script>";
+    //     return false; // Registrasi gagal
+    // }
 }
 
 // ⭐⭐⭐ USER START ⭐⭐⭐
@@ -147,7 +158,7 @@ function create_transaction($data)
     $price = $selectPrice[0]["price"];
 
     $query = "INSERT INTO transaction VALUES (NULL, '$name', '$date', '$package', '$start', '$end', $price)";
-    mysqli_query($conn, $query);    
+    mysqli_query($conn, $query);
 
     return mysqli_affected_rows($conn);
 }
