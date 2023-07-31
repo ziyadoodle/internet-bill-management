@@ -10,6 +10,7 @@ if (!isset($_SESSION["login"])) {
 require './functions.php';
 
 $user = query("SELECT * FROM user");
+$activeUserCount = count($user);
 
 // create check
 if (isset($_POST["submit"])) {
@@ -97,7 +98,7 @@ if (isset($_POST["submit"])) {
             </div>
 
             <div class="flex flex-between">
-                <div class="flex flex-col w-[30%] bg-neutral-600 rounded-lg p-8 mt-10 2xl:mt-24">
+                <div class="flex flex-col items-center w-[30%] bg-neutral-600 rounded-lg p-8 mt-10 2xl:mt-24">
                     <a type="button" id="createButton" class="createButton hover:text-red-400 hover:cursor-pointer" title="Create" onclick="modalHandler(true);" data-bs-toggle="modal" data-bs-target="#ubahModal">
                         <div class=" flex flex-row items-center mt-1 text-white font-bold">
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
@@ -108,9 +109,9 @@ if (isset($_POST["submit"])) {
                     </a>
 
                 </div>
-                <div class="flex flex-col w-[30%] ml-4 bg-neutral-600 rounded-lg p-8 mt-10 2xl:mt-24">
+                <div class="flex flex-col items-center w-[30%] ml-4 bg-neutral-600 rounded-lg p-8 mt-10 2xl:mt-24">
                     <div class="flex flex-row items-center text-white font-bold">
-                        <h1 class="text-3xl">15</h1>
+                        <h1 class="text-3xl"><?= $activeUserCount ?></h1>
                         <h1 class="pl-2">Active User</h1>
                     </div>
                 </div>
