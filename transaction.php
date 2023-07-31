@@ -36,7 +36,7 @@ if (isset($_POST["print"])) {
 </head>
 
 <body class="bg-zinc-800">
-    <div class="flex flex-row p-6 w-full h-screen">
+    <div class="flex flex-row p-6 w-full h-full">
         <div class="basis-2/12">
             <div class="sidebar w-[250px] h-full p-2 overflow-y-auto text-center bg-gradient-to-b from-fuchsia-400 to-purple-800 rounded-2xl">
                 <div class="text-white text-xl">
@@ -232,31 +232,31 @@ if (isset($_POST["print"])) {
 
                         <label for="transaction_user_name" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Name</label>
                         <select name="transaction_user_name" id="transaction_user_name_i" class="form-control mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" value="">
-                                    <option value="0">Select User</option>
-                                    <?php foreach ($users as $user) : ?>
-                                        <option value="<?= $user['user_name'] ?>" class="o_user_name"><?= $user['user_name'] ?></option>
-                                    <?php endforeach; ?>
+                            <option value="0">Select User</option>
+                            <?php foreach ($users as $user) : ?>
+                                <option value="<?= $user['user_name'] ?>" class="o_user_name"><?= $user['user_name'] ?></option>
+                            <?php endforeach; ?>
                         </select>
 
                         <label for="transaction_package_name" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Package Name</label>
                         <select name="transaction_package_name" id="transaction_package_name_i" class="form-control mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" value="">
-                                    <option value="0">Select Package</option>
-                                    <?php foreach ($package as $pkg) : ?>
-                                        <option value="<?= $pkg['package_name'] ?>"><?= $pkg['package_name'] ?></option>
-                                    <?php endforeach; ?>
+                            <option value="0">Select Package</option>
+                            <?php foreach ($package as $pkg) : ?>
+                                <option value="<?= $pkg['package_name'] ?>"><?= $pkg['package_name'] ?></option>
+                            <?php endforeach; ?>
                         </select>
 
                         <label for="transaction_date" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Date</label>
                         <input type="date" name="transaction_date" id="transaction_date_i" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" autocomplete="off" readonly />
 
                         <label for="transaction_start" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Start</label>
-                        <input type="date" name="transaction_start" id="transaction_start_i" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" autocomplete="off"/>
+                        <input type="date" name="transaction_start" id="transaction_start_i" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" autocomplete="off" />
 
                         <label for="transaction_end" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">End</label>
                         <input type="date" name="transaction_end" id="transaction_end_i" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" autocomplete="off" />
 
                         <label for="transaction_package_price" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Price</label>
-                        <input type="text" name="transaction_package_price" id="transaction_package_price_i" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" autocomplete="off" readonly/>
+                        <input type="text" name="transaction_package_price" id="transaction_package_price_i" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" autocomplete="off" readonly />
 
                         <div class="flex items-center justify-start w-full">
                             <button type="submit" name="edit" class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-8 py-2 text-sm">Submit</button>

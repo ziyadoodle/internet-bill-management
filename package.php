@@ -43,7 +43,7 @@ if (isset($_POST["edit"])) {
 </head>
 
 <body class="bg-zinc-800">
-    <div class="flex flex-row p-6 w-full h-screen">
+    <div class="flex flex-row p-6 w-full h-full">
         <div class="basis-2/12">
             <div class="sidebar w-[250px] h-full p-2 overflow-y-auto text-center bg-gradient-to-b from-fuchsia-400 to-purple-800 rounded-2xl">
                 <div class="text-white text-xl">

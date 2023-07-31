@@ -24,7 +24,7 @@ $tableRecent = query('SELECT user_name, date FROM transaction ORDER BY id DESC L
 
 <body class="bg-zinc-800">
 
-    <div class="flex flex-row p-6 w-full h-screen">
+    <div class="flex flex-row p-6 w-full h-full">
 
         <div class="basis-2/12">
             <div class="sidebar w-[250px] h-full p-2 overflow-y-auto text-center bg-gradient-to-b from-fuchsia-400 to-purple-800 rounded-2xl">
@@ -81,10 +81,12 @@ $tableRecent = query('SELECT user_name, date FROM transaction ORDER BY id DESC L
                 <div class="text-white text-base font-normal">admin</div>
                 <div class="text-white text-base font-normal">time</div>
             </div>
+
             <div class="flex flex-col text-white font-bold mt-10">
                 <h2 class="text-3xl font-semibold ">Overview</h2>
                 <p class="text-md font-normal">Here what’s happening in your finance</p>
             </div>
+
             <div class="flex flex-row justify-between mt-5">
                 <div class="w-[60%] 2xl:w-3/5 h-full bg-neutral-600 rounded-lg p-8">
                     <div class="flex flex-col text-white">
@@ -110,7 +112,7 @@ $tableRecent = query('SELECT user_name, date FROM transaction ORDER BY id DESC L
                 </div>
             </div>
 
-            <div class="flex flex-row justify-between my-10">
+            <div class="flex flex-row justify-between mt-10">
                 <div class="w-[40%] 2xl:w-[40%] h-[18rem] bg-neutral-600 rounded-lg p-8">
                     <div class="flex flex-col text-center font-semibold text-white ">
                         <h3 class="text-xl">Package of Internet</h3>
@@ -147,7 +149,6 @@ $tableRecent = query('SELECT user_name, date FROM transaction ORDER BY id DESC L
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 
