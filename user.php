@@ -9,7 +9,15 @@ if (!isset($_SESSION["login"])) {
 
 require './functions.php';
 
+// get timezone
+date_default_timezone_set('Asia/Jakarta');
+
+// get date and time
+$currentDate = date('Y-m-d');
+$currentTime = date('H:i:s');
+
 $user = query("SELECT * FROM user");
+$activeUserCount = count($user);
 
 // create check
 if (isset($_POST["submit"])) {
@@ -91,13 +99,13 @@ if (isset($_POST["submit"])) {
 
         <div class="topbar flex flex-col basis-10/12 px-16 2xl:px-20">
             <div class="flex justify-between items-center bg-neutral-600 rounded-xl px-6 py-4">
-                <div class="text-white text-base font-normal">date</div>
-                <div class="text-white text-base font-normal">admin</div>
-                <div class="text-white text-base font-normal">time</div>
+                <div class="text-white text-base font-normal">Date : <span id="currentDate"></span></div>
+                <div class="text-white text-base font-normal"> @<?= $_SESSION["username"]; ?></div>
+                <div class="text-white text-base font-normal">Time : <span id="currentTime"></span></div>
             </div>
 
             <div class="flex flex-between">
-                <div class="flex flex-col w-[30%] bg-neutral-600 rounded-lg p-8 mt-10 2xl:mt-24">
+                <div class="flex flex-col items-center w-[30%] bg-neutral-600 rounded-lg p-8 mt-10 2xl:mt-24">
                     <a type="button" id="createButton" class="createButton hover:text-red-400 hover:cursor-pointer" title="Create" onclick="modalHandler(true);" data-bs-toggle="modal" data-bs-target="#ubahModal">
                         <div class=" flex flex-row items-center mt-1 text-white font-bold">
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
@@ -108,9 +116,9 @@ if (isset($_POST["submit"])) {
                     </a>
 
                 </div>
-                <div class="flex flex-col w-[30%] ml-4 bg-neutral-600 rounded-lg p-8 mt-10 2xl:mt-24">
+                <div class="flex flex-col items-center w-[30%] ml-4 bg-neutral-600 rounded-lg p-8 mt-10 2xl:mt-24">
                     <div class="flex flex-row items-center text-white font-bold">
-                        <h1 class="text-3xl">15</h1>
+                        <h1 class="text-3xl"><?= $activeUserCount ?></h1>
                         <h1 class="pl-2">Active User</h1>
                     </div>
                 </div>
@@ -246,6 +254,26 @@ if (isset($_POST["submit"])) {
                 }
             })();
         }
+
+        // date and time
+        function updateClock() {
+            const currentDateElement = document.getElementById('currentDate');
+            const currentTimeElement = document.getElementById('currentTime');
+
+            const now = new Date();
+
+            const currentDateStr = now.toDateString();
+            const currentTimeStr = now.toLocaleTimeString(undefined, {
+                hour12: false
+            });
+
+            currentDateElement.textContent = currentDateStr;
+            currentTimeElement.textContent = currentTimeStr;
+        }
+
+        setInterval(updateClock, 1000);
+
+        updateClock();
     </script>
 
 </body>

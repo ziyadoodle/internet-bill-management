@@ -101,7 +101,7 @@ if ($result) {
         <div class="flex flex-col basis-10/12 px-16 2xl:px-20">
             <div class="flex justify-between items-center bg-neutral-600 rounded-xl px-6 py-4">
                 <div class="text-white text-base font-normal">Date : <span id="currentDate"></span></div>
-                <div class="text-white text-base font-normal"> @<?= $namaUser ?></div>
+                <div class="text-white text-base font-normal"> @<?= $_SESSION["username"]; ?></div>
                 <div class="text-white text-base font-normal">Time : <span id="currentTime"></span></div>
             </div>
 
@@ -196,6 +196,7 @@ if ($result) {
             // Get the chart canvas element
             const ctx = document.getElementById('chart').getContext('2d');
 
+            // Fungsi untuk mengambil data dari server melalui AJAX
             // Define the chart data
             const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'];
             const data = {
@@ -203,6 +204,8 @@ if ($result) {
                 datasets: [{
                     label: 'My First Dataset',
                     data: [<?= $jan["total"]; ?>, <?= $feb["total"] ?>, <?= $mar["total"]; ?>, <?= $apr["total"]; ?>, <?= $may["total"]; ?>, <?= $jun["total"]; ?>, <?= $jul["total"]; ?>, <?= $aug["total"]; ?>, <?= $sep["total"]; ?>, <?= $okt["total"]; ?>, <?= $nov["total"]; ?>, <?= $des["total"]; ?>],
+                    label: '',
+                    data: [65, 59, 80, 81, 56, 55, 40, 81, 56, 55, 40, 20],
                     backgroundColor: 'rgba(54, 162, 235, 0.8)',
                     barThickness: 20,
                 }]
