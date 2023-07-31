@@ -2,8 +2,8 @@
 
 require './functions.php';
 
-// $transaction = query("SELECT * FROM package INNER JOIN transaction ON package.package_name = transaction.package_name");
-$transaction = query("SELECT t.id, t.user_name, t.date, t.package_name, t.start, t.end, t.price FROM transaction AS t INNER JOIN package ON t.package_name = package.package_name ORDER BY id DESC");
+
+$transaction = query("SELECT * FROM transaction ORDER BY id DESC");
 $users = query("SELECT * FROM user");
 $package = query("SELECT * FROM package");
 
@@ -97,7 +97,7 @@ if (isset($_POST["print"])) {
             <div class="flex flex-row justify-betwee mt-5">
                 <div class="w-[70%] 2xl:w-[70%] h-full bg-neutral-600 rounded-lg p-8">
                     <div class="flex flex-row items-center text-white font-bold">
-                        <img width="30" height="30" src="https://img.icons8.com/?size=512&id=15115&format=png" alt="new-transaction" />
+                    <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/ffffff/refund-2.png" alt="refund-2" />
                         <h1 class="pl-2">Create Transaction</h1>
                     </div>
 
@@ -229,7 +229,7 @@ if (isset($_POST["print"])) {
         <div role="alert" class="container mx-auto w-11/12 md:w-2/3 max-w-lg">
             <div class="relative py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400">
                 <div class="w-full flex justify-start text-gray-600 mb-3">
-                    <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/4B5563/new-product.png" alt="new-product" />
+                <img width="30" height="30" src="https://img.icons8.com/?size=512&id=15115&format=png" alt="new-transaction" />
                 </div>
                 <h1 class="text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">Edit Data Transaksi</h1>
 
