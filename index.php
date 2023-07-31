@@ -32,28 +32,6 @@ if ($result) {
 } else {
     $totalIncome = 0;
 }
-
-
-// Mengambil data dari tabel 'transaction'
-$query = "SELECT date, price FROM transaction";
-$result = $conn->query($query);
-
-// Menyimpan data dalam array
-$data = array();
-while ($row = $result->fetch_assoc()) {
-    $data[] = $row;
-}
-
-// Mengembalikan data dalam bentuk JSON
-echo json_encode($data);
-
-
-
-
-
-// Tutup koneksi database
-mysqli_close($conn);
-
 ?>
 
 <!doctype html>
@@ -198,52 +176,55 @@ mysqli_close($conn);
         </div>
     </div>
 
+    <?php
+    $jan = query("SELECT SUM(price) AS total FROM transaction WHERE month(date) = 1")[0];
+    $feb = query("SELECT SUM(price) AS total FROM transaction WHERE month(date) = 2")[0];
+    $mar = query("SELECT SUM(price) AS total FROM transaction WHERE month(date) = 3")[0];
+    $apr = query("SELECT SUM(price) AS total FROM transaction WHERE month(date) = 4")[0];
+    $may = query("SELECT SUM(price) AS total FROM transaction WHERE month(date) = 5")[0];
+    $jun = query("SELECT SUM(price) AS total FROM transaction WHERE month(date) = 6")[0];
+    $jul = query("SELECT SUM(price) AS total FROM transaction WHERE month(date) = 7")[0];
+    $aug = query("SELECT SUM(price) AS total FROM transaction WHERE month(date) = 8")[0];
+    $sep = query("SELECT SUM(price) AS total FROM transaction WHERE month(date) = 9")[0];
+    $okt = query("SELECT SUM(price) AS total FROM transaction WHERE month(date) = 10")[0];
+    $nov = query("SELECT SUM(price) AS total FROM transaction WHERE month(date) = 11")[0];
+    $des = query("SELECT SUM(price) AS total FROM transaction WHERE month(date) = 12")[0];
+    ?>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Get the chart canvas element
             const ctx = document.getElementById('chart').getContext('2d');
 
-            // Fungsi untuk mengambil data dari server melalui AJAX
-            function fetchData() {
-                fetch('fetch_data.php')
-                    .then(response => response.json())
-                    .then(data => {
-                        // Mengubah data yang diambil dari server menjadi format yang sesuai dengan Chart.js
-                        const labels = data.map(item => item.date);
-                        const values = data.map(item => item.price);
-                        const chartData = {
-                            labels: labels,
-                            datasets: [{
-                                label: 'My First Dataset',
-                                data: values,
-                                backgroundColor: 'rgba(54, 162, 235, 0.8)',
-                                barThickness: 20,
-                            }]
-                        };
+            // Define the chart data
+            const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'];
+            const data = {
+                labels: labels,
+                datasets: [{
+                    label: 'My First Dataset',
+                    data: [<?= $jan["total"]; ?>, <?= $feb["total"] ?>, <?= $mar["total"]; ?>, <?= $apr["total"]; ?>, <?= $may["total"]; ?>, <?= $jun["total"]; ?>, <?= $jul["total"]; ?>, <?= $aug["total"]; ?>, <?= $sep["total"]; ?>, <?= $okt["total"]; ?>, <?= $nov["total"]; ?>, <?= $des["total"]; ?>],
+                    backgroundColor: 'rgba(54, 162, 235, 0.8)',
+                    barThickness: 20,
+                }]
+            };
 
-                        // Define the chart options (sama seperti sebelumnya)
-                        const chartOptions = {
-                            scales: {
-                                yAxes: [{
-                                    ticks: {
-                                        beginAtZero: true
-                                    }
-                                }]
-                            },
-                        };
+            // Define the chart options
+            const chartOptions = {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                },
+            };
 
-                        // Membuat dan merender chart dengan data baru
-                        new Chart(ctx, {
-                            type: 'bar',
-                            data: chartData,
-                            options: chartOptions
-                        });
-                    })
-                    .catch(error => console.error('Error fetching data:', error));
-            }
-
-            // Panggil fungsi fetchData untuk pertama kali (mengambil data dan merender chart)
-            fetchData();
+            // Create and render the bar chart
+            new Chart(ctx, {
+                type: 'bar',
+                data: data,
+                options: chartOptions
+            });
         });
 
         // date and time

@@ -84,7 +84,7 @@ if (isset($_POST["submit"])) {
                 </a>
 
                 <div class="p-2.5 mt-10 flex items-center rounded-md px-4 duration-300 cursor-pointer bg-zinc-800 hover:bg-zinc-950  text-white">
-                    <span class="text-[15px] mx-auto text-white font-bold">Logout</span>
+                    <a href="logout.php" class="text-[15px] mx-auto text-white font-bold">Logout</a>
                 </div>
             </div>
         </div>
