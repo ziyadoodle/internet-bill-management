@@ -50,6 +50,9 @@ if (isset($_POST["edit"])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Package</title>
+
     <link href="./src/styles.css" rel="stylesheet">
 </head>
 
