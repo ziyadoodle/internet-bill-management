@@ -24,13 +24,20 @@ $currentTime = date('H:i:s');
 //total of the month
 $currentYear = date('Y');
 $currentMonth = date('m');
-$result = mysqli_query($conn, "SELECT SUM(price) AS total_income FROM transaction WHERE YEAR(date) = $currentYear AND MONTH(date) = $currentMonth");
 
-if ($result) {
-    $row = mysqli_fetch_assoc($result);
-    $totalIncome = $row['total_income'];
+//total income
+$totalIncomeQuery = mysqli_query($conn, 'SELECT SUM(price) AS totalIncome FROM transaction');
+
+if ($totalIncomeQuery) {
+    $totalIncomeData = mysqli_fetch_assoc($totalIncomeQuery);
+    $totalIncome = $totalIncomeData['totalIncome'];
+
+    if ($totalIncome === null) {
+        $totalIncome = 0;
+    }
 } else {
     $totalIncome = 0;
+    echo 'Error : ' . mysqli_error($conn);
 }
 ?>
 
