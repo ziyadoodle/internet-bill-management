@@ -9,6 +9,13 @@ if (!isset($_SESSION["login"])) {
 
 require './functions.php';
 
+// get timezone
+date_default_timezone_set('Asia/Jakarta');
+
+// get date and time
+$currentDate = date('Y-m-d');
+$currentTime = date('H:i:s');
+
 $user = query("SELECT * FROM user");
 $activeUserCount = count($user);
 
@@ -92,9 +99,9 @@ if (isset($_POST["submit"])) {
 
         <div class="topbar flex flex-col basis-10/12 px-16 2xl:px-20">
             <div class="flex justify-between items-center bg-neutral-600 rounded-xl px-6 py-4">
-                <div class="text-white text-base font-normal">date</div>
-                <div class="text-white text-base font-normal">admin</div>
-                <div class="text-white text-base font-normal">time</div>
+                <div class="text-white text-base font-normal">Date : <span id="currentDate"></span></div>
+                <div class="text-white text-base font-normal"> @<?= $_SESSION["username"]; ?></div>
+                <div class="text-white text-base font-normal">Time : <span id="currentTime"></span></div>
             </div>
 
             <div class="flex flex-between">
@@ -247,6 +254,26 @@ if (isset($_POST["submit"])) {
                 }
             })();
         }
+
+        // date and time
+        function updateClock() {
+            const currentDateElement = document.getElementById('currentDate');
+            const currentTimeElement = document.getElementById('currentTime');
+
+            const now = new Date();
+
+            const currentDateStr = now.toDateString();
+            const currentTimeStr = now.toLocaleTimeString(undefined, {
+                hour12: false
+            });
+
+            currentDateElement.textContent = currentDateStr;
+            currentTimeElement.textContent = currentTimeStr;
+        }
+
+        setInterval(updateClock, 1000);
+
+        updateClock();
     </script>
 
 </body>

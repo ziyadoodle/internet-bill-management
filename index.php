@@ -44,8 +44,6 @@ while ($row = $result->fetch_assoc()) {
     $data[] = $row;
 }
 
-// Mengembalikan data dalam bentuk JSON
-echo json_encode($data);
 
 
 
@@ -123,7 +121,7 @@ mysqli_close($conn);
         <div class="flex flex-col basis-10/12 px-16 2xl:px-20">
             <div class="flex justify-between items-center bg-neutral-600 rounded-xl px-6 py-4">
                 <div class="text-white text-base font-normal">Date : <span id="currentDate"></span></div>
-                <div class="text-white text-base font-normal"> @<?= $namaUser ?></div>
+                <div class="text-white text-base font-normal"> @<?= $_SESSION["username"]; ?></div>
                 <div class="text-white text-base font-normal">Time : <span id="currentTime"></span></div>
             </div>
 
@@ -204,46 +202,35 @@ mysqli_close($conn);
             const ctx = document.getElementById('chart').getContext('2d');
 
             // Fungsi untuk mengambil data dari server melalui AJAX
-            function fetchData() {
-                fetch('fetch_data.php')
-                    .then(response => response.json())
-                    .then(data => {
-                        // Mengubah data yang diambil dari server menjadi format yang sesuai dengan Chart.js
-                        const labels = data.map(item => item.date);
-                        const values = data.map(item => item.price);
-                        const chartData = {
-                            labels: labels,
-                            datasets: [{
-                                label: 'My First Dataset',
-                                data: values,
-                                backgroundColor: 'rgba(54, 162, 235, 0.8)',
-                                barThickness: 20,
-                            }]
-                        };
+            // Define the chart data
+            const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'];
+            const data = {
+                labels: labels,
+                datasets: [{
+                    label: '',
+                    data: [65, 59, 80, 81, 56, 55, 40, 81, 56, 55, 40, 20],
+                    backgroundColor: 'rgba(54, 162, 235, 0.8)',
+                    barThickness: 20,
+                }]
+            };
 
-                        // Define the chart options (sama seperti sebelumnya)
-                        const chartOptions = {
-                            scales: {
-                                yAxes: [{
-                                    ticks: {
-                                        beginAtZero: true
-                                    }
-                                }]
-                            },
-                        };
+            // Define the chart options
+            const chartOptions = {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                },
+            };
 
-                        // Membuat dan merender chart dengan data baru
-                        new Chart(ctx, {
-                            type: 'bar',
-                            data: chartData,
-                            options: chartOptions
-                        });
-                    })
-                    .catch(error => console.error('Error fetching data:', error));
-            }
-
-            // Panggil fungsi fetchData untuk pertama kali (mengambil data dan merender chart)
-            fetchData();
+            // Create and render the bar chart
+            new Chart(ctx, {
+                type: 'bar',
+                data: data,
+                options: chartOptions
+            });
         });
 
         // date and time

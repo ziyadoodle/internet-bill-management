@@ -9,6 +9,10 @@ if (!isset($_SESSION["login"])) {
 
 require 'functions.php';
 
+// get date and time
+$currentDate = date('Y-m-d');
+$currentTime = date('H:i:s');
+
 $username = $_SESSION['username'];
 $account = query("SELECT * FROM account WHERE username = '$username'")[0];
 if (isset($_POST['submit'])) {
@@ -86,9 +90,9 @@ if (isset($_POST['submit'])) {
 
         <div class="flex flex-col basis-10/12 px-16 2xl:px-20">
             <div class="flex justify-between items-center bg-neutral-600 rounded-xl px-6 py-4">
-                <div class="text-white text-base font-normal">date</div>
-                <div class="text-white text-base font-normal"><?= $_SESSION["username"]; ?></div>
-                <div class="text-white text-base font-normal">time</div>
+                <div class="text-white text-base font-normal">Date : <span id="currentDate"></span></div>
+                <div class="text-white text-base font-normal"> @<?= $_SESSION["username"]; ?></div>
+                <div class="text-white text-base font-normal">Time : <span id="currentTime"></span></div>
             </div>
             <div class="flex flex-col text-white font-bold mt-10">
                 <h2 class="text-3xl font-semibold ">Update Account</h2>
@@ -131,6 +135,27 @@ if (isset($_POST['submit'])) {
         </div>
     </div>
 
+    <script>
+        // date and time
+        function updateClock() {
+            const currentDateElement = document.getElementById('currentDate');
+            const currentTimeElement = document.getElementById('currentTime');
+
+            const now = new Date();
+
+            const currentDateStr = now.toDateString();
+            const currentTimeStr = now.toLocaleTimeString(undefined, {
+                hour12: false
+            });
+
+            currentDateElement.textContent = currentDateStr;
+            currentTimeElement.textContent = currentTimeStr;
+        }
+
+        setInterval(updateClock, 1000);
+
+        updateClock();
+    </script>
 </body>
 
 </html>

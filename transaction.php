@@ -10,6 +10,10 @@ if (!isset($_SESSION["login"])) {
 
 require './functions.php';
 
+// get date and time
+$currentDate = date('Y-m-d');
+$currentTime = date('H:i:s');
+
 $transaction = query("SELECT * FROM transaction ORDER BY id DESC");
 $users = query("SELECT * FROM user");
 $package = query("SELECT * FROM package");
@@ -109,9 +113,9 @@ if (isset($_POST["print"])) {
 
         <div class="topbar flex flex-col basis-10/12 px-16 2xl:px-20">
             <div class="flex justify-between items-center bg-neutral-600 rounded-xl px-6 py-4">
-                <div class="text-white text-base font-normal">date</div>
-                <div class="text-white text-base font-normal">admin</div>
-                <div class="text-white text-base font-normal">time</div>
+                <div class="text-white text-base font-normal">Date : <span id="currentDate"></span></div>
+                <div class="text-white text-base font-normal"> @<?= $_SESSION["username"]; ?></div>
+                <div class="text-white text-base font-normal">Time : <span id="currentTime"></span></div>
             </div>
 
             <div class="flex flex-row justify-betwee mt-5">
@@ -388,6 +392,26 @@ if (isset($_POST["print"])) {
             var to = document.getElementById("to").value;
             window.open("print_report.php?from=" + from + "&to=" + to, "_blank");
         }
+
+        // date and time
+        function updateClock() {
+            const currentDateElement = document.getElementById('currentDate');
+            const currentTimeElement = document.getElementById('currentTime');
+
+            const now = new Date();
+
+            const currentDateStr = now.toDateString();
+            const currentTimeStr = now.toLocaleTimeString(undefined, {
+                hour12: false
+            });
+
+            currentDateElement.textContent = currentDateStr;
+            currentTimeElement.textContent = currentTimeStr;
+        }
+
+        setInterval(updateClock, 1000);
+
+        updateClock();
     </script>
 
 

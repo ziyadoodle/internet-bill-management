@@ -9,6 +9,10 @@ if (!isset($_SESSION["login"])) {
 
 require './functions.php';
 
+// get date and time
+$currentDate = date('Y-m-d');
+$currentTime = date('H:i:s');
+
 $package = query("SELECT * FROM package");
 
 // create check
@@ -102,9 +106,9 @@ if (isset($_POST["edit"])) {
 
         <div class="topbar flex flex-col basis-10/12 px-16 2xl:px-20">
             <div class="flex justify-between items-center bg-neutral-600 rounded-xl px-6 py-4">
-                <div class="text-white text-base font-normal">date</div>
-                <div class="text-white text-base font-normal">admin</div>
-                <div class="text-white text-base font-normal">time</div>
+                <div class="text-white text-base font-normal">Date : <span id="currentDate"></span></div>
+                <div class="text-white text-base font-normal"> @<?= $_SESSION["username"]; ?></div>
+                <div class="text-white text-base font-normal">Time : <span id="currentTime"></span></div>
             </div>
 
             <div class="flex flex-col w-[70%] 2xl:w-[60%] h-[22rem] bg-neutral-600 rounded-lg p-8 mt-10 2xl:mt-24">
@@ -293,6 +297,27 @@ if (isset($_POST["edit"])) {
             $(".modal-body #package_desc_i").val(pkgDesc);
             $(".modal-body #package_price_i").val(pkgPrice);
         });
+
+
+        // date and time
+        function updateClock() {
+            const currentDateElement = document.getElementById('currentDate');
+            const currentTimeElement = document.getElementById('currentTime');
+
+            const now = new Date();
+
+            const currentDateStr = now.toDateString();
+            const currentTimeStr = now.toLocaleTimeString(undefined, {
+                hour12: false
+            });
+
+            currentDateElement.textContent = currentDateStr;
+            currentTimeElement.textContent = currentTimeStr;
+        }
+
+        setInterval(updateClock, 1000);
+
+        updateClock();
     </script>
 
 </body>
