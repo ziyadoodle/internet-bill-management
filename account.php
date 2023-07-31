@@ -1,17 +1,16 @@
 <?php
+
+session_start();
+
+if (!isset($_SESSION["login"])) {
+    header("Location: login.php");
+    exit();
+}
+
 require 'functions.php';
-// session_start();
-
-// $currentUsername = $_SESSION['username'];
-// $currentRole = $_SESSION['role'];
-
 
 if (isset($_POST['submit'])) {
-    // Get the form data
-    $username = $_POST['username'];
-    $old_password = $_POST['old_password'];
-    $new_password = $_POST['new_password'];
-    $role = $_POST['role'];
+    update_account($_POST);
 }
 ?>
 
@@ -93,26 +92,24 @@ if (isset($_POST['submit'])) {
                     </div>
                 </div>
                 <div class="w-[70%] 2xl:w-[70%] h-[22rem] p-5">
-                    <form action="POST">
+                    <form action="" method="POST">
+                        <?= var_dump($account); ?>
                         <div class="flex flex-col text-white mt-10">
+                            <input type="hidden" name="account_id" id="account_id" value="">
                             <div class="flex flex-row w-full items-center pr-10">
                                 <label for="name" class="w-3/12">Username</label>
-                                <input type="text" name="username" id="username" class="h-8 w-9/12 border-none outline-none mt-4 rounded px-4 bg-neutral-500" value="" autocomplete="off"" />
-                        </div>
-                        <div class=" flex flex-row w-full items-center pr-10">
+                                <input type="text" name="username" id="username" class="h-8 w-9/12 border-none outline-none mt-4 rounded px-4 bg-neutral-500" value="<?= $_SESSION["username"]; ?>" autocomplete="off" />
+                            </div>
+                            <div class=" flex flex-row w-full items-center pr-10">
                                 <label for="name" class="w-3/12">Old Password</label>
-                                <input type="text" name="old_password" id="old_password" class="h-8 w-9/12 border-none outline-none mt-4 rounded px-4 bg-neutral-500" value="" autocomplete="off"" />
-                        </div>
-                        <div class=" flex flex-row w-full items-center pr-10">
+                                <input type="text" name="old_password" id="old_password" class="h-8 w-9/12 border-none outline-none mt-4 rounded px-4 bg-neutral-500" value="" autocomplete="off" />
+                            </div>
+                            <div class=" flex flex-row w-full items-center pr-10">
                                 <label for="name" class="w-3/12">New Password</label>
-                                <input type="text" name="new_password" id="new_password" class="h-8 w-9/12 border-none outline-none mt-4 rounded px-4 bg-neutral-500" value="" autocomplete="off"" />
-                        </div>
-                        <div class=" flex flex-row w-full items-center pr-10">
-                                <label for="name" class="w-3/12">Role</label>
-                                <input type="text" name="role" id="role" class="h-8 w-9/12 border-none outline-none mt-4 rounded px-4 bg-neutral-500" value="" autocomplete="off"" />
-                        </div>
+                                <input type="text" name="new_password" id="new_password" class="h-8 w-9/12 border-none outline-none mt-4 rounded px-4 bg-neutral-500" value="" autocomplete="off" />
+                            </div>
 
-                        <div class=" flex flex-row justify-end w-full items-center pr-10 py-2 mt-3">
+                            <div class=" flex flex-row justify-end w-full items-center pr-10 py-2 mt-3">
                                 <button type="submit" name="submit" class="bg-neutral-500 text-white rounded-md px-4 py-2 transition duration-300 ease select-none hover:bg-neutral-700 focus:outline-none focus:shadow-outline flex items-center space-x-1">
                                     <img width="20" height="20" src="https://img.icons8.com/ios-filled/50/ffffff/synchronize.png" alt="synchronize" />
                                     <span>Update</span>
