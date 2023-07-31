@@ -8,9 +8,51 @@ if (!isset($_SESSION["login"])) {
     exit();
 }
 
+
 require 'functions.php';
 
 $tableRecent = query('SELECT user_name, date FROM transaction ORDER BY id DESC LIMIT 4');
+$namaUser = $_SESSION['username'];
+
+// get timezone
+date_default_timezone_set('Asia/Jakarta');
+
+// get date and time
+$currentDate = date('Y-m-d');
+$currentTime = date('H:i:s');
+
+//total of the month
+$currentYear = date('Y');
+$currentMonth = date('m');
+$result = mysqli_query($conn, "SELECT SUM(price) AS total_income FROM transaction WHERE YEAR(date) = $currentYear AND MONTH(date) = $currentMonth");
+
+if ($result) {
+    $row = mysqli_fetch_assoc($result);
+    $totalIncome = $row['total_income'];
+} else {
+    $totalIncome = 0;
+}
+
+
+// Mengambil data dari tabel 'transaction'
+$query = "SELECT date, price FROM transaction";
+$result = $conn->query($query);
+
+// Menyimpan data dalam array
+$data = array();
+while ($row = $result->fetch_assoc()) {
+    $data[] = $row;
+}
+
+// Mengembalikan data dalam bentuk JSON
+echo json_encode($data);
+
+
+
+
+
+// Tutup koneksi database
+mysqli_close($conn);
 
 ?>
 
@@ -80,9 +122,9 @@ $tableRecent = query('SELECT user_name, date FROM transaction ORDER BY id DESC L
 
         <div class="flex flex-col basis-10/12 px-16 2xl:px-20">
             <div class="flex justify-between items-center bg-neutral-600 rounded-xl px-6 py-4">
-                <div class="text-white text-base font-normal">date</div>
-                <div class="text-white text-base font-normal">admin</div>
-                <div class="text-white text-base font-normal">time</div>
+                <div class="text-white text-base font-normal">Date : <span id="currentDate"></span></div>
+                <div class="text-white text-base font-normal"> @<?= $namaUser ?></div>
+                <div class="text-white text-base font-normal">Time : <span id="currentTime"></span></div>
             </div>
 
             <div class="flex flex-col text-white font-bold mt-10">
@@ -148,9 +190,10 @@ $tableRecent = query('SELECT user_name, date FROM transaction ORDER BY id DESC L
                 <div class="flex flex-col w-[60%] bg-neutral-600 rounded-xl p-8 ml-10">
                     <div class="flex flex-col text-center font-semibold">
                         <h3 class="text-white text-2xl">Total Income of The Month</h3>
-                        <h3 class="text-white mt-20 text-4xl">Rp.3.000.000</h3>
+                        <h3 class="text-white mt-20 text-4xl">Rp. <?= number_format($totalIncome, 0, ',', '.'); ?></h3>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -160,36 +203,68 @@ $tableRecent = query('SELECT user_name, date FROM transaction ORDER BY id DESC L
             // Get the chart canvas element
             const ctx = document.getElementById('chart').getContext('2d');
 
-            // Define the chart data
-            const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'];
-            const data = {
-                labels: labels,
-                datasets: [{
-                    label: 'My First Dataset',
-                    data: [65, 59, 80, 81, 56, 55, 40, 81, 56, 55, 40, 20],
-                    backgroundColor: 'rgba(54, 162, 235, 0.8)',
-                    barThickness: 20,
-                }]
-            };
+            // Fungsi untuk mengambil data dari server melalui AJAX
+            function fetchData() {
+                fetch('fetch_data.php')
+                    .then(response => response.json())
+                    .then(data => {
+                        // Mengubah data yang diambil dari server menjadi format yang sesuai dengan Chart.js
+                        const labels = data.map(item => item.date);
+                        const values = data.map(item => item.price);
+                        const chartData = {
+                            labels: labels,
+                            datasets: [{
+                                label: 'My First Dataset',
+                                data: values,
+                                backgroundColor: 'rgba(54, 162, 235, 0.8)',
+                                barThickness: 20,
+                            }]
+                        };
 
-            // Define the chart options
-            const chartOptions = {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                },
-            };
+                        // Define the chart options (sama seperti sebelumnya)
+                        const chartOptions = {
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            },
+                        };
 
-            // Create and render the bar chart
-            new Chart(ctx, {
-                type: 'bar',
-                data: data,
-                options: chartOptions
-            });
+                        // Membuat dan merender chart dengan data baru
+                        new Chart(ctx, {
+                            type: 'bar',
+                            data: chartData,
+                            options: chartOptions
+                        });
+                    })
+                    .catch(error => console.error('Error fetching data:', error));
+            }
+
+            // Panggil fungsi fetchData untuk pertama kali (mengambil data dan merender chart)
+            fetchData();
         });
+
+        // date and time
+        function updateClock() {
+            const currentDateElement = document.getElementById('currentDate');
+            const currentTimeElement = document.getElementById('currentTime');
+
+            const now = new Date();
+
+            const currentDateStr = now.toDateString();
+            const currentTimeStr = now.toLocaleTimeString(undefined, {
+                hour12: false
+            });
+
+            currentDateElement.textContent = currentDateStr;
+            currentTimeElement.textContent = currentTimeStr;
+        }
+
+        setInterval(updateClock, 1000);
+
+        updateClock();
     </script>
 </body>
 

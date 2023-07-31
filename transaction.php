@@ -168,12 +168,12 @@ if (isset($_POST["print"])) {
                     </div>
                     <div class="flex flex-col items-center p-4 text-white">
                         <h1>From : </h1>
-                        <input type="date" name="end" id="end" class="h-8 w-9/12 border-none outline-none mt-1 rounded px-4 bg-neutral-500" value="" autocomplete="off" />
+                        <input type="date" name="from" id="from" class="h-8 w-9/12 border-none outline-none mt-1 rounded px-4 bg-neutral-500" value="" autocomplete="off" />
                         <h1>To : </h1>
-                        <input type="date" name="end" id="end" class="h-8 w-9/12 border-none outline-none mt-1 rounded px-4 bg-neutral-500" value="" autocomplete="off" />
+                        <input type="date" name="to" id="to" class="h-8 w-9/12 border-none outline-none mt-1 rounded px-4 bg-neutral-500" value="" autocomplete="off" />
                     </div>
                     <div class="flex flex-row justify-end w-full items-center pr-10 py-2 mt-6">
-                        <button type="submit" name="print" class="bg-neutral-500 text-white rounded-md px-4 py-2 transition duration-300 ease select-none hover:bg-neutral-700 focus:outline-none focus:shadow-outline">Print</button>
+                        <button onclick="printReport()" class="bg-neutral-500 text-white rounded-md px-4 py-2 transition duration-300 ease select-none hover:bg-neutral-700 focus:outline-none focus:shadow-outline">Print</button>
                     </div>
                 </div>
             </div>
@@ -381,6 +381,13 @@ if (isset($_POST["print"])) {
             $(".modal-body #transaction_end_i").val(tEnd);
             $(".modal-body #transaction_package_price_i").val(tPrice);
         });
+
+        //print
+        function printReport() {
+            var from = document.getElementById("from").value;
+            var to = document.getElementById("to").value;
+            window.open("print_report.php?from=" + from + "&to=" + to, "_blank");
+        }
     </script>
 
 
