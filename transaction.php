@@ -2,7 +2,8 @@
 
 require './functions.php';
 
-$transaction = query("SELECT * FROM transaction");
+// $transaction = query("SELECT * FROM package INNER JOIN transaction ON package.package_name = transaction.package_name");
+$transaction = query("SELECT t.id, t.user_name, t.date, t.package_name, t.start, t.end, t.price FROM transaction AS t INNER JOIN package ON t.package_name = package.package_name ORDER BY id DESC");
 $users = query("SELECT * FROM user");
 $package = query("SELECT * FROM package");
 
@@ -16,6 +17,19 @@ if (isset($_POST["create"])) {
     } else {
         echo "<script> 
                 alert('Transaksi Gagal!');
+            </script>";
+    }
+}
+
+if (isset($_POST["edit"])) {
+    if (update_transaction($_POST) > 0) {
+        echo "<script> 
+                alert('Transaction successfully Modified!');
+                document.location.href = 'transaction.php';
+            </script>";
+    } else {
+        echo "<script> 
+                alert('Transaction failed to Change!');
             </script>";
     }
 }
@@ -119,13 +133,6 @@ if (isset($_POST["print"])) {
                                 <label for="end" class="w-3/12">End</label>
                                 <input type="date" name="end" id="end" class="h-8 w-9/12 border-none outline-none mt-1 rounded px-4 bg-neutral-500" value="" autocomplete="off" />
                             </div>
-                            <!-- <div class="flex flex-row w-full items-center pr-10 py-2">
-                                <label for="price" class="w-3/12">Price</label>
-                                <div class="price-input w-9/12 flex justify-between">
-                                    <input type="text" class="h-8 w-1/12 border-none outline-none mt-1 mr-2 px-1 text-center rounded bg-neutral-700" value="Rp." disabled />
-                                    <input type="text" name="price" id="price" class="h-8 w-11/12 border-none outline-none mt-1 rounded px-4 bg-neutral-700" value="" autocomplete="off" readonly />
-                                </div>
-                            </div> -->
                             <div class="flex flex-row justify-end w-full items-center pr-10 py-2 mt-6">
                                 <button type="submit" name="create" class="bg-neutral-500 text-white rounded-md px-4 py-2 transition duration-300 ease select-none hover:bg-neutral-700 focus:outline-none focus:shadow-outline">Create</button>
 
@@ -195,7 +202,7 @@ if (isset($_POST["print"])) {
                                             <?= $row["price"]; ?>
                                         </td>
                                         <td class="flex justify-center py-3">
-                                            <a type="button" id="editButton" class="editButton w-4 mr-2 hover:text-neutral-400 hover:cursor-pointer" title="edit" onclick="modalHandler(true);" data-id_transaction="<?= $row['id'] ?>" data-user_name="<?= $row['user_name'] ?>" data-date="<?= $row['date'] ?>" data-start="<?= $row['start'] ?>" data-end="<?= $row['end'] ?>" data-price="<?= $row['price'] ?>">
+                                            <a type="button" id="editButton" class="editButton w-4 mr-2 hover:text-neutral-400 hover:cursor-pointer" title="edit" onclick="modalHandler(true);" data-id_transaction="<?= $row['id'] ?>" data-user_name="<?= $row['user_name'] ?>" data-package_name="<?= $row['package_name']; ?>" data-date="<?= $row['date'] ?>" data-start="<?= $row['start'] ?>" data-end="<?= $row['end'] ?>" data-price="<?= $row['price'] ?>">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                                                 </svg>
@@ -232,7 +239,6 @@ if (isset($_POST["print"])) {
 
                         <label for="transaction_user_name" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Name</label>
                         <select name="transaction_user_name" id="transaction_user_name_i" class="form-control mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" value="">
-                            <option value="0">Select User</option>
                             <?php foreach ($users as $user) : ?>
                                 <option value="<?= $user['user_name'] ?>" class="o_user_name"><?= $user['user_name'] ?></option>
                             <?php endforeach; ?>
@@ -240,23 +246,19 @@ if (isset($_POST["print"])) {
 
                         <label for="transaction_package_name" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Package Name</label>
                         <select name="transaction_package_name" id="transaction_package_name_i" class="form-control mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" value="">
-                            <option value="0">Select Package</option>
                             <?php foreach ($package as $pkg) : ?>
                                 <option value="<?= $pkg['package_name'] ?>"><?= $pkg['package_name'] ?></option>
                             <?php endforeach; ?>
                         </select>
 
                         <label for="transaction_date" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Date</label>
-                        <input type="date" name="transaction_date" id="transaction_date_i" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" autocomplete="off" readonly />
+                        <input type="date" name="transaction_date" id="transaction_date_i" class="mb-5 mt-2 bg-gray-300 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" autocomplete="off" readonly />
 
                         <label for="transaction_start" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Start</label>
                         <input type="date" name="transaction_start" id="transaction_start_i" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" autocomplete="off" />
 
                         <label for="transaction_end" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">End</label>
                         <input type="date" name="transaction_end" id="transaction_end_i" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" autocomplete="off" />
-
-                        <label for="transaction_package_price" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Price</label>
-                        <input type="text" name="transaction_package_price" id="transaction_package_price_i" class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" autocomplete="off" readonly />
 
                         <div class="flex items-center justify-start w-full">
                             <button type="submit" name="edit" class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-8 py-2 text-sm">Submit</button>
@@ -272,8 +274,6 @@ if (isset($_POST["print"])) {
                         </button>
                     </div>
                 </form>
-
-
             </div>
         </div>
     </div>

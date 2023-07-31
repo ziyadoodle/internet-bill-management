@@ -145,7 +145,6 @@ function delete_package($id)
 //TRANSACTION
 function create_transaction($data)
 {
-
     global $conn;
 
     $name = htmlspecialchars($data["name"]);
@@ -158,6 +157,35 @@ function create_transaction($data)
     $price = $selectPrice[0]["price"];
 
     $query = "INSERT INTO transaction VALUES (NULL, '$name', '$date', '$package', '$start', '$end', $price)";
+    mysqli_query($conn, $query);
+
+    return mysqli_affected_rows($conn);
+}
+
+function update_transaction($data)
+{
+    global $conn;
+
+    $id = $data["id_transaction"];
+    $username = htmlspecialchars($data["transaction_user_name"]);
+    $package_name = htmlspecialchars($data["transaction_package_name"]);
+    $start = $data["transaction_start"];
+    $end = $data["transaction_end"];
+
+    $selectPrice = query("SELECT * FROM package WHERE package_name = '$package_name'");
+    $price = $selectPrice[0]["price"];
+
+    $query = "UPDATE transaction SET
+                user_name = '$username',
+                package_name = '$package_name',
+                start = '$start',
+                end = '$end',
+                price = $price
+            WHERE id = $id
+                ";
+
+    var_dump($query);
+
     mysqli_query($conn, $query);
 
     return mysqli_affected_rows($conn);
