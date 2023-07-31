@@ -12,7 +12,7 @@ start server `(APACHE)` and dbms services `(MySQL)` in local host or server such
 
 **# Dengan beranggotakan**
 1. Aldi Sukma G
-2. Aditya Pratama
+2. <a href="https://github.com/Adittyapn">Aditya Pratama</a>
 3. Raden Wahid
 4. Tia Maryani
 5. Ziyad Fakhri Z
