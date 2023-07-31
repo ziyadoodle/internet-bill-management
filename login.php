@@ -74,9 +74,6 @@ if (isset($_POST["login"])) {
 </head>
 
 <body class="bg-zinc-800 h-screen">
-  <div class="alert alert-warning" role="alert">
-  </div>
-
   <section class="flex items-center justify-center h-full">
     <div class="container">
 
