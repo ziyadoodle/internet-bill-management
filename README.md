@@ -8,4 +8,11 @@
 
 start server `(APACHE)` and dbms services `(MySQL)` in local host or server such as **XAMPP**
 
+**dengan beranggotakan**
+1. Aldi Sukma G
+2. Aditya Pratama
+3. Raden Wahid
+4. Tia Maryani
+5. Ziyad Fakhri Z
+
 <img src="https://media.discordapp.net/attachments/1069224418938728488/1134122481930748025/preview.png" width="1000" />
