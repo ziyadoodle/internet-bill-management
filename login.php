@@ -5,19 +5,19 @@ session_start();
 require 'functions.php';
 
 // cek cookie
-// if (isset($_COOKIE['num']) && isset($_COOKIE['ket'])) {
-//   $id = $_COOKIE['num'];
-//   $key = $_COOKIE['key'];
+if (isset($_COOKIE['num']) && isset($_COOKIE['key'])) {
+  $id = $_COOKIE['num'];
+  $key = $_COOKIE['key'];
 
-//   // ambil username berdasarkan id
-//   $result = mysqli_query($conn, "SELECT username FROM account WHERE id = $id");
-//   $row = mysqli_fetch_assoc($result);
+  // ambil username berdasarkan id
+  $result = mysqli_query($conn, "SELECT username FROM account WHERE id = $id");
+  $row = mysqli_fetch_assoc($result);
 
-//   // cek cookie dan username
-//   if ($key === hash('sha256', $row["username"])) {
-//     $_SESSION["login"] = true;
-//   }
-// }
+  // cek cookie dan username
+  if ($key === hash('sha256', $row["username"])) {
+    $_SESSION["login"] = true;
+  }
+}
 
 if (isset($_SESSION["login"])) {
   header("Location: index.php");
@@ -41,11 +41,11 @@ if (isset($_POST["login"])) {
       $_SESSION["username"] = $_POST["username"];
 
       // cek remember me
-      // if (isset($_POST["remember"])){
-      //   // buat cookie
-      //   setcookie('num', $row['id'], time()+60);
-      //   setcookie('key', hash('sha256', $row['username']), time()+60);
-      // }
+      if (isset($_POST["remember"])) {
+        // buat cookie
+        setcookie('num', $row['id'], time() + (86400 * 30));
+        setcookie('key', hash('sha256', $row['username']), time() + (86400 * 30));
+      }
 
       header("Location: index.php");
       exit;

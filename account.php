@@ -9,8 +9,17 @@ if (!isset($_SESSION["login"])) {
 
 require 'functions.php';
 
+$username = $_SESSION['username'];
+$account = query("SELECT * FROM account WHERE username = '$username'")[0];
 if (isset($_POST['submit'])) {
-    update_account($_POST);
+    if ($_POST["old_password"] && $_POST["new_password"]) {
+        if (update_account($_POST) > 0) {
+            echo "<script> 
+                alert('Password berhasil di Ubah!');
+                document.location.href = 'account.php';
+            </script>";
+        }
+    }
 }
 ?>
 
@@ -78,7 +87,7 @@ if (isset($_POST['submit'])) {
         <div class="flex flex-col basis-10/12 px-16 2xl:px-20">
             <div class="flex justify-between items-center bg-neutral-600 rounded-xl px-6 py-4">
                 <div class="text-white text-base font-normal">date</div>
-                <div class="text-white text-base font-normal">admin</div>
+                <div class="text-white text-base font-normal"><?= $_SESSION["username"]; ?></div>
                 <div class="text-white text-base font-normal">time</div>
             </div>
             <div class="flex flex-col text-white font-bold mt-10">
@@ -93,9 +102,9 @@ if (isset($_POST['submit'])) {
                 </div>
                 <div class="w-[70%] 2xl:w-[70%] h-[22rem] p-5">
                     <form action="" method="POST">
-                        <?= var_dump($account); ?>
                         <div class="flex flex-col text-white mt-10">
-                            <input type="hidden" name="account_id" id="account_id" value="">
+                            <input type="hidden" name="account_id" id="account_id" value="<?= $account["id"]; ?>">
+                            <input type="hidden" name="password" id="password" value="<?= $account["password"]; ?>">
                             <div class="flex flex-row w-full items-center pr-10">
                                 <label for="name" class="w-3/12">Username</label>
                                 <input type="text" name="username" id="username" class="h-8 w-9/12 border-none outline-none mt-4 rounded px-4 bg-neutral-500" value="<?= $_SESSION["username"]; ?>" autocomplete="off" />
