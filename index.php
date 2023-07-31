@@ -199,16 +199,13 @@ if ($result) {
             // Get the chart canvas element
             const ctx = document.getElementById('chart').getContext('2d');
 
-            // Fungsi untuk mengambil data dari server melalui AJAX
             // Define the chart data
             const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'];
             const data = {
                 labels: labels,
                 datasets: [{
-                    label: 'My First Dataset',
+                    label: 'Income of The Months',
                     data: [<?= $jan["total"]; ?>, <?= $feb["total"] ?>, <?= $mar["total"]; ?>, <?= $apr["total"]; ?>, <?= $may["total"]; ?>, <?= $jun["total"]; ?>, <?= $jul["total"]; ?>, <?= $aug["total"]; ?>, <?= $sep["total"]; ?>, <?= $okt["total"]; ?>, <?= $nov["total"]; ?>, <?= $des["total"]; ?>],
-                    label: '',
-                    data: [65, 59, 80, 81, 56, 55, 40, 81, 56, 55, 40, 20],
                     backgroundColor: 'rgba(54, 162, 235, 0.8)',
                     barThickness: 20,
                 }]
