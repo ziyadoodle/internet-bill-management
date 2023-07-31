@@ -8,12 +8,12 @@ $package = query("SELECT * FROM package");
 if (isset($_POST["submit"])) {
     if (create_package($_POST) > 0) {
         echo "<script> 
-                alert('Package Berhasil di Buat !');
+                alert('Package Successfully Created!');
                 document.location.href = 'package.php';
             </script>";
     } else {
         echo "<script> 
-        alert('Package Gagal di Buat !');
+        alert('Package Failed to Create!');
     </script>";
     }
 }
@@ -22,12 +22,12 @@ if (isset($_POST["submit"])) {
 if (isset($_POST["edit"])) {
     if (update_package($_POST) > 0) {
         echo "<script> 
-                alert('Package Berhasil di Edit!');
+                alert('Package Successfully Modified!');
                 document.location.href = 'package.php';
             </script>";
     } else {
         echo "<script> 
-                alert('Package Gagal di Edit!');
+                alert('Package Failed to Change!');
             </script>";
     }
 }

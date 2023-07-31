@@ -11,12 +11,12 @@ $package = query("SELECT * FROM package");
 if (isset($_POST["create"])) {
     if (create_transaction($_POST) > 0) {
         echo "<script> 
-                alert('Transaksi Berhasil!');
+                alert('Transaction Successfully Created!');
                 document.location.href = 'transaction.php';
             </script>";
     } else {
         echo "<script> 
-                alert('Transaksi Gagal!');
+                alert('Transaction Failed to Create!');
             </script>";
     }
 }
@@ -24,12 +24,12 @@ if (isset($_POST["create"])) {
 if (isset($_POST["edit"])) {
     if (update_transaction($_POST) > 0) {
         echo "<script> 
-                alert('Transaction successfully Modified!');
+                alert('Transaction Successfully Modified!');
                 document.location.href = 'transaction.php';
             </script>";
     } else {
         echo "<script> 
-                alert('Transaction failed to Change!');
+                alert('Transaction Failed to Change!');
             </script>";
     }
 }

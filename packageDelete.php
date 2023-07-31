@@ -6,12 +6,12 @@ $id = $_GET["id"];
 
 if (delete_package($id) > 0) {
     echo "<script> 
-                alert('Data Berhasil di Hapus!');
+                alert('Data Successfully Deleted!');
                 document.location.href = 'package.php';
             </script>";
 } else {
     echo "<script> 
-                alert('Data Gagal di Hapus!');
+                alert('Data Failed to Delete!');
                 document.location.href = 'package.php';
             </script>";
 }
