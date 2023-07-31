@@ -11,10 +11,10 @@ start server `(APACHE)` and dbms services `(MySQL)` in local host or server such
 <br>
 
 **# Dengan beranggotakan**
-1. Aldi Sukma G
+1. <a href="https://github.com/villain10">Aldi Sukma</a>
 2. <a href="https://github.com/Adittyapn">Aditya Pratama</a>
-3. Raden Wahid
-4. Tia Maryani
-5. Ziyad Fakhri Z
+3. <a href="https://github.com/radenwahid">Raden Wahid</a>
+4. <a href="https://github.com/tyayaaa">Tia Maryani</a>
+5. <a href="https://github.com/ziyadoodle">Ziyad Fakhri Z</a>
 
 <img src="https://media.discordapp.net/attachments/1069224418938728488/1134122481930748025/preview.png" width="1000" />
