@@ -230,20 +230,32 @@ function update_account($data)
 {
     global $conn;
 
-    // $id = $data["account_id"];
-    $username = $data["username"];
-    $passwordOld = mysqli_real_escape_string($conn, $data["new_password"]);
-    $passwordNew = mysqli_real_escape_string($conn, $data["old_password"]);
+    $id = $data["account_id"];
+    $password = $data["password"];
+    $passwordOld = mysqli_real_escape_string($conn, $data["old_password"]);
+    $passwordNew = mysqli_real_escape_string($conn, $data["new_password"]);
 
-    if (!$data["new_password"] && !$data["old_password"]) {
-        // $query = ("UPDATE account SET username = '$username' WHERE id = $id");
-        echo "<script> 
-                alert('Username Successfully Changed!');
-            </script>";
+    if ($password == $passwordNew) {
+        echo "
+            <script>
+                alert('password tidak boleh sama dengan yang dulu!');
+            </script>
+            ";
     }
 
-    // mysqli_query($conn, $query);
-
-    // return mysqli_affected_rows($conn);
+    if (password_verify($passwordOld, $password)) {
+        $passwordNew = password_hash($passwordNew, PASSWORD_DEFAULT);
+        $query = ("UPDATE account SET password = '$passwordNew' WHERE id = $id");
+        mysqli_query($conn, $query);
+        return mysqli_affected_rows($conn);
+        header("Location: account.php");
+        exit;
+    } else {
+        echo "
+            <script>
+                alert('Old Password does Not Match!');
+            </script>
+            ";
+    }
 }
 // ⭐⭐⭐ Account ⭐⭐⭐
