@@ -1,11 +1,18 @@
 <?php
 
+session_start();
+
+if (!isset($_SESSION["login"])) {
+    header("Location: login.php");
+    exit();
+}
+
 require './functions.php';
 
 $package = query("SELECT * FROM package");
 
 // create check
-if (isset($_POST["submit"])) {
+if (isset($_POST["create"])) {
     if (create_package($_POST) > 0) {
         echo "<script> 
                 alert('Package Successfully Created!');
@@ -124,7 +131,7 @@ if (isset($_POST["edit"])) {
                             </div>
                         </div>
                         <div class="flex flex-row justify-end w-full items-center pr-10 py-2 mt-6">
-                            <button type="submit" name="submit" class="bg-neutral-500 text-white rounded-md px-4 py-2 transition duration-300 ease select-none hover:bg-neutral-700 focus:outline-none focus:shadow-outline">Create</button>
+                            <button type="submit" name="create" class="bg-neutral-500 text-white rounded-md px-4 py-2 transition duration-300 ease select-none hover:bg-neutral-700 focus:outline-none focus:shadow-outline">Create</button>
                         </div>
                     </div>
                 </form>

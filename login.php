@@ -1,6 +1,6 @@
 <?php
 
-// session_start();
+session_start();
 
 require 'functions.php';
 
@@ -19,10 +19,10 @@ require 'functions.php';
 //   }
 // }
 
-// if (isset($_SESSION["login"])) {
-//   header("Location: index.php");
-//   exit;
-// }
+if (isset($_SESSION["login"])) {
+  header("Location: index.php");
+  exit;
+}
 
 if (isset($_POST["login"])) {
   $username = $_POST["username"];
@@ -35,10 +35,10 @@ if (isset($_POST["login"])) {
 
     // cek password
     $row = mysqli_fetch_assoc($result);
-    var_dump($row);
     if (password_verify($password, $row["password"])) {
       // set session
-      // $_SESSION["login"] = true;
+      $_SESSION["login"] = true;
+      $_SESSION["username"] = $_POST["username"];
 
       // cek remember me
       // if (isset($_POST["remember"])){
@@ -89,11 +89,11 @@ if (isset($_POST["login"])) {
           <form class="w-full" method="POST">
             <div class="mb-4 2xl:mb-8">
               <label class="block text-white text-sm font-bold mb-2" for="username">Username</label>
-              <input id="username" name="username" type="text" placeholder="Username" class="shadow appearance-none border rounded w-full p-4 text-white leading-tight focus:outline-none focus:shadow-outline bg-transparent">
+              <input id="username" name="username" type="text" class="shadow appearance-none border rounded w-full p-4 text-white leading-tight focus:outline-none focus:shadow-outline bg-transparent" placeholder="Username" autocomplete="off">
             </div>
             <div class="mb-4 2xl:mb-8">
               <label class="block text-white text-sm font-bold mb-2" for="password">Password</label>
-              <input id="password" name="password" type="password" class="shadow appearance-none border border-white rounded w-full p-4 text-white  leading-tight focus:outline-none focus:shadow-outline bg-transparent" placeholder="password">
+              <input id="password" name="password" type="password" class="shadow appearance-none border border-white rounded w-full p-4 text-white  leading-tight focus:outline-none focus:shadow-outline bg-transparent" placeholder="Password" autocomplete="off">
             </div>
             <div class="mb-4 2xl:mb-8">
               <input type="checkbox" name="remember" id="remember">

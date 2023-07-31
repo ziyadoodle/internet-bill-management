@@ -50,15 +50,6 @@ function registrasi($data)
     mysqli_query($conn, "INSERT INTO account VALUES(NULL, '$username', '$password')");
 
     return mysqli_affected_rows($conn);
-    // $insertQuery = "INSERT INTO account (username, password) VALUES ('$username', '$hashedPassword')";
-    // $insertResult = mysqli_query($conn, $insertQuery);
-
-    // if ($insertResult) {
-    //     return true; // Registrasi berhasil
-    // } else {
-    //     echo "<script>alert('Gagal daftar: " . mysqli_error($conn) . "');</script>";
-    //     return false; // Registrasi gagal
-    // }
 }
 
 // ⭐⭐⭐ USER START ⭐⭐⭐
@@ -200,11 +191,9 @@ function delete_transaction($id)
     return mysqli_affected_rows($conn);
 }
 
-
 function report_transactions($from, $to)
 {
     global $conn;
-
 
     // Mengubah format tanggal
     $from = date_format(date_create($from), 'Y-m-d');
@@ -235,3 +224,26 @@ function report_transactions($from, $to)
     }
 }
 //TRANSACTION
+
+// ⭐⭐⭐ Account ⭐⭐⭐
+function update_account($data)
+{
+    global $conn;
+
+    // $id = $data["account_id"];
+    $username = $data["username"];
+    $passwordOld = mysqli_real_escape_string($conn, $data["new_password"]);
+    $passwordNew = mysqli_real_escape_string($conn, $data["old_password"]);
+
+    if (!$data["new_password"] && !$data["old_password"]) {
+        // $query = ("UPDATE account SET username = '$username' WHERE id = $id");
+        echo "<script> 
+                alert('Username Successfully Changed!');
+            </script>";
+    }
+
+    // mysqli_query($conn, $query);
+
+    // return mysqli_affected_rows($conn);
+}
+// ⭐⭐⭐ Account ⭐⭐⭐

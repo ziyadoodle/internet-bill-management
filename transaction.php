@@ -1,7 +1,14 @@
 <?php
 
-require './functions.php';
+session_start();
 
+// Periksa apakah pengguna sudah login, jika tidak, arahkan kembali ke halaman login
+if (!isset($_SESSION["login"])) {
+    header("Location: login.php");
+    exit();
+}
+
+require './functions.php';
 
 $transaction = query("SELECT * FROM transaction ORDER BY id DESC");
 $users = query("SELECT * FROM user");
