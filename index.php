@@ -187,18 +187,14 @@ if ($totalIncomeQuery) {
     </div>
 
     <?php
-    $jan = query("SELECT SUM(price) AS total FROM transaction WHERE month(start) = 1")[0];
-    $feb = query("SELECT SUM(price) AS total FROM transaction WHERE month(start) = 2")[0];
-    $mar = query("SELECT SUM(price) AS total FROM transaction WHERE month(start) = 3")[0];
-    $apr = query("SELECT SUM(price) AS total FROM transaction WHERE month(start) = 4")[0];
-    $may = query("SELECT SUM(price) AS total FROM transaction WHERE month(start) = 5")[0];
-    $jun = query("SELECT SUM(price) AS total FROM transaction WHERE month(start) = 6")[0];
-    $jul = query("SELECT SUM(price) AS total FROM transaction WHERE month(start) = 7")[0];
-    $aug = query("SELECT SUM(price) AS total FROM transaction WHERE month(start) = 8")[0];
-    $sep = query("SELECT SUM(price) AS total FROM transaction WHERE month(start) = 9")[0];
-    $okt = query("SELECT SUM(price) AS total FROM transaction WHERE month(start) = 10")[0];
-    $nov = query("SELECT SUM(price) AS total FROM transaction WHERE month(start) = 11")[0];
-    $des = query("SELECT SUM(price) AS total FROM transaction WHERE month(start) = 12")[0];
+    $months = [];
+    for ($i = 1; $i <= 12; $i++) {
+        $month = query("SELECT SUM(price) AS total FROM transaction WHERE month(start) = $i")[0];
+        if ($month["total"] === NULL) {
+            $month["total"] = 0;
+        }
+        array_push($months, $month["total"]);
+    }
     ?>
 
     <script>
@@ -212,7 +208,9 @@ if ($totalIncomeQuery) {
                 labels: labels,
                 datasets: [{
                     label: 'Income of The Months',
-                    data: [<?= $jan["total"]; ?>, <?= $feb["total"] ?>, <?= $mar["total"]; ?>, <?= $apr["total"]; ?>, <?= $may["total"]; ?>, <?= $jun["total"]; ?>, <?= $jul["total"]; ?>, <?= $aug["total"]; ?>, <?= $sep["total"]; ?>, <?= $okt["total"]; ?>, <?= $nov["total"]; ?>, <?= $des["total"]; ?>],
+                    data: [
+                        <?php foreach ($months as $m) : ?><?= "$m,"; ?><?php endforeach; ?>
+                    ],
                     backgroundColor: 'rgba(232, 121, 249, 0.7)',
                     barThickness: 20,
                 }]
