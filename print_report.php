@@ -1,6 +1,6 @@
 <?php
 //-------------------------------------------------------------//
-//                    LAPORAN PENERIMAAN                       //
+//                    REPORT TRANSACTION                       //
 //-------------------------------------------------------------//
 // Mendapatkan nilai dari parameter GET
 $from = $_GET['from'];
