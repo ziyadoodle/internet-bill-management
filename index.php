@@ -213,7 +213,7 @@ if ($totalIncomeQuery) {
                 datasets: [{
                     label: 'Income of The Months',
                     data: [<?= $jan["total"]; ?>, <?= $feb["total"] ?>, <?= $mar["total"]; ?>, <?= $apr["total"]; ?>, <?= $may["total"]; ?>, <?= $jun["total"]; ?>, <?= $jul["total"]; ?>, <?= $aug["total"]; ?>, <?= $sep["total"]; ?>, <?= $okt["total"]; ?>, <?= $nov["total"]; ?>, <?= $des["total"]; ?>],
-                    backgroundColor: 'rgba(54, 162, 235, 0.8)',
+                    backgroundColor: 'rgb(232 121 249)',
                     barThickness: 20,
                 }]
             };
