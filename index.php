@@ -26,7 +26,7 @@ $currentYear = date('Y');
 $currentMonth = date('m');
 
 //total income
-$totalIncomeQuery = mysqli_query($conn, 'SELECT SUM(price) AS totalIncome FROM transaction');
+$totalIncomeQuery = mysqli_query($conn, "SELECT SUM(price) AS totalIncome FROM transaction WHERE month(date) = $currentMonth");
 
 if ($totalIncomeQuery) {
     $totalIncomeData = mysqli_fetch_assoc($totalIncomeQuery);
@@ -187,18 +187,18 @@ if ($totalIncomeQuery) {
     </div>
 
     <?php
-    $jan = query("SELECT SUM(price) AS total FROM transaction WHERE month(date) = 1")[0];
-    $feb = query("SELECT SUM(price) AS total FROM transaction WHERE month(date) = 2")[0];
-    $mar = query("SELECT SUM(price) AS total FROM transaction WHERE month(date) = 3")[0];
-    $apr = query("SELECT SUM(price) AS total FROM transaction WHERE month(date) = 4")[0];
-    $may = query("SELECT SUM(price) AS total FROM transaction WHERE month(date) = 5")[0];
-    $jun = query("SELECT SUM(price) AS total FROM transaction WHERE month(date) = 6")[0];
-    $jul = query("SELECT SUM(price) AS total FROM transaction WHERE month(date) = 7")[0];
-    $aug = query("SELECT SUM(price) AS total FROM transaction WHERE month(date) = 8")[0];
-    $sep = query("SELECT SUM(price) AS total FROM transaction WHERE month(date) = 9")[0];
-    $okt = query("SELECT SUM(price) AS total FROM transaction WHERE month(date) = 10")[0];
-    $nov = query("SELECT SUM(price) AS total FROM transaction WHERE month(date) = 11")[0];
-    $des = query("SELECT SUM(price) AS total FROM transaction WHERE month(date) = 12")[0];
+    $jan = query("SELECT SUM(price) AS total FROM transaction WHERE month(start) = 1")[0];
+    $feb = query("SELECT SUM(price) AS total FROM transaction WHERE month(start) = 2")[0];
+    $mar = query("SELECT SUM(price) AS total FROM transaction WHERE month(start) = 3")[0];
+    $apr = query("SELECT SUM(price) AS total FROM transaction WHERE month(start) = 4")[0];
+    $may = query("SELECT SUM(price) AS total FROM transaction WHERE month(start) = 5")[0];
+    $jun = query("SELECT SUM(price) AS total FROM transaction WHERE month(start) = 6")[0];
+    $jul = query("SELECT SUM(price) AS total FROM transaction WHERE month(start) = 7")[0];
+    $aug = query("SELECT SUM(price) AS total FROM transaction WHERE month(start) = 8")[0];
+    $sep = query("SELECT SUM(price) AS total FROM transaction WHERE month(start) = 9")[0];
+    $okt = query("SELECT SUM(price) AS total FROM transaction WHERE month(start) = 10")[0];
+    $nov = query("SELECT SUM(price) AS total FROM transaction WHERE month(start) = 11")[0];
+    $des = query("SELECT SUM(price) AS total FROM transaction WHERE month(start) = 12")[0];
     ?>
 
     <script>
