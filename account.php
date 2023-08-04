@@ -113,7 +113,7 @@ if (isset($_POST['submit'])) {
                             <input type="hidden" name="password" id="password" value="<?= $account["password"]; ?>">
                             <div class="flex flex-row w-full items-center pr-10">
                                 <label for="name" class="w-3/12">Username</label>
-                                <input type="text" name="username" id="username" class="h-8 w-9/12 border-none outline-none mt-4 rounded px-4 bg-neutral-500" value="<?= $_SESSION["username"]; ?>" autocomplete="off" />
+                                <input type="text" name="username" id="username" class="h-8 w-9/12 border-none outline-none mt-4 rounded px-4 bg-neutral-700" value="<?= $_SESSION["username"]; ?>" readonly />
                             </div>
                             <div class=" flex flex-row w-full items-center pr-10">
                                 <label for="name" class="w-3/12">Old Password</label>
