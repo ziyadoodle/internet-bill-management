@@ -4,7 +4,7 @@
 
 1. Clone the repo `git clone https://github.com/ziyadoodle/internet-bill-management.git`
 2. `cd internet-bill-management`
-3. Run `npm install`
+3. Run ```npm install```
 
 start server `(APACHE)` and dbms services `(MySQL)` in local host or server such as **XAMPP**
 
