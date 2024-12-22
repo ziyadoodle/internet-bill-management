@@ -20,4 +20,4 @@ start server `(APACHE)` and dbms services `(MySQL)` in local host or server such
 |         Tia Maryani         | 210102055  |          Frontend & Backend Engineer         |                                         [Github](https://github.com/tyayaaa)                                        |
 |      Ziyad Fakhri Zidane    | 210102058  | Project Manager, Frontend & Backend Engineer |                                        [Github](https://github.com/ziyadoodle)                                      |
 
-<img src="https://media.discordapp.net/attachments/1069224418938728488/1134122481930748025/preview.png" width="1000" />
+<img src="https://raw.githubusercontent.com/ziyadoodle/internet-bill-management/refs/heads/main/thumbnail.png" width="1000" />
